@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>港澳团队学员服务流程及话术</title>
+<style>
+/* ============================================================
+   CSS 变量
+   ============================================================ */
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+  --accent: #f59e0b;
+  --accent-light: #fbbf24;
+  --success: #10b981;
+  --danger: #ef4444;
+  --bg: #f0f7ff;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --border: #bfdbfe;
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #cbd5e1;
+  --sidebar-active: #3b82f6;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.7;
+  display: flex; min-height: 100vh;
+}
+
+/* ============================================================
+   侧边栏
+   ============================================================ */
+.sidebar {
+  width: 280px; min-width: 280px; background: var(--sidebar-bg);
+  color: var(--sidebar-text); display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
+  transition: transform 0.3s;
+}
+.sidebar-close-btn { display: none; position: absolute; top: 8px; right: 12px;
+  background: none; border: none; color: #94a3b8; font-size: 20px;
+  cursor: pointer; z-index: 10; padding: 8px; line-height: 1; }
+
+.sidebar-header { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-header h3 { font-size: 14px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.sidebar-header .course-title { font-size: 16px; font-weight: 700; color: #fff; line-height: 1.4; }
+
+.sidebar-progress { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+.progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--sidebar-active); border-radius: 3px; transition: width 0.5s ease; width: 0%; }
+
+.sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 0; }
+.nav-section { padding: 8px 20px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; transition: all 0.2s; border-left: 3px solid transparent; }
+.nav-section:hover { background: rgba(255,255,255,0.05); }
+.nav-section.active { background: rgba(59,130,246,0.15); border-left-color: var(--sidebar-active); color: #fff; }
+.nav-section.completed { color: #94a3b8; }
+.nav-section.completed .nav-icon { background: var(--success); color: #fff; }
+.nav-section.locked { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+.nav-section.locked .nav-icon { background: rgba(255,255,255,0.08); color: #64748b; }
+.nav-icon { width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--sidebar-text); transition: all 0.3s; }
+.nav-section.active .nav-icon { background: var(--sidebar-active); color: #fff; }
+.nav-info .nav-label { font-size: 13px; font-weight: 600; }
+.nav-info .nav-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+.nav-section.active .nav-info .nav-sub { color: #94a3b8; }
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: #64748b; }
+
+.study-timer { padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.timer-icon { font-size: 16px; }
+.timer-display { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; }
+.timer-label { color: #94a3b8; font-size: 11px; }
+
+/* ============================================================
+   主内容区
+   ============================================================ */
+.main { margin-left: 280px; flex: 1; padding: 40px; max-width: 900px; }
+.section { display: none; animation: fadeSlide 0.4s ease; }
+.section.active { display: block; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-header { margin-bottom: 32px; }
+.section-badge { display: inline-block; padding: 4px 14px; background: #dbeafe; color: var(--primary-dark); border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+.section-header h1 { font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.section-header .duration { font-size: 14px; color: var(--text-secondary); }
+
+/* ============================================================
+   内容组件
+   ============================================================ */
+.card { background: var(--card); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.card-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+
+.highlight-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid var(--primary); padding: 20px 24px; border-radius: var(--radius-sm); margin: 20px 0; }
+.highlight-box.warning { background: linear-gradient(135deg, #fef3c7, #fde68a); border-left-color: var(--accent); }
+.highlight-box.danger { background: linear-gradient(135deg, #fef2f2, #fee2e2); border-left-color: var(--danger); }
+.highlight-box.success { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-left-color: var(--success); }
+
+.script-block { background: #f1f5f9; padding: 20px 24px; border-radius: var(--radius-sm); color: #475569; position: relative; margin: 16px 0; line-height: 1.8; }
+.script-block::before { content: '💬 話術參考'; position: absolute; top: -10px; left: 16px; background: #475569; color: #fff; padding: 2px 10px; border-radius: 10px; font-size: 11px; }
+.script-block .lp-line { color: #1d4ed8; font-weight: 600; }
+.script-block .parent-line { color: #059669; font-weight: 600; }
+
+.flow-steps { display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap; }
+.flow-step { flex: 1; min-width: 130px; background: var(--card); border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 16px; text-align: center; box-shadow: var(--shadow); }
+.flow-step .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+.flow-step h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.flow-step p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+.flow-arrow { display: flex; align-items: center; font-size: 24px; color: var(--primary); font-weight: 700; }
+
+.info-list { list-style: none; padding: 0; }
+.info-list li { padding: 8px 0; padding-left: 24px; position: relative; font-size: 14px; line-height: 1.7; }
+.info-list li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+
+.detail-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+.detail-table th { background: #dbeafe; padding: 12px 16px; text-align: left; font-weight: 700; color: var(--primary-dark); border: 1px solid var(--border); }
+.detail-table td { padding: 12px 16px; border: 1px solid var(--border); background: var(--card); line-height: 1.6; }
+.detail-table tr:nth-child(even) td { background: #f8fafc; }
+
+/* ============================================================
+   互动组件：选择题
+   ============================================================ */
+.quiz-card { background: var(--card); border-radius: var(--radius); padding: 28px; margin: 24px 0; box-shadow: var(--shadow-lg); border: 2px solid var(--border); }
+.quiz-card.answered-correct { border-color: var(--success); }
+.quiz-card.answered-wrong { border-color: var(--danger); }
+.quiz-question { font-size: 16px; font-weight: 600; margin-bottom: 20px; line-height: 1.7; }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-option { display: flex; align-items: center; gap: 12px; padding: 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; min-height: 48px; }
+.quiz-option:hover { border-color: var(--primary-light); background: #f0f7ff; }
+.quiz-option.selected { border-color: var(--primary); background: #dbeafe; }
+.quiz-option.correct { border-color: var(--success) !important; background: #ecfdf5 !important; }
+.quiz-option.wrong { border-color: var(--danger) !important; background: #fef2f2 !important; }
+.quiz-option-label { width: 30px; height: 30px; min-width: 30px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+.quiz-feedback { display: none; margin-top: 16px; padding: 16px; border-radius: var(--radius-sm); font-size: 14px; line-height: 1.7; }
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: #ecfdf5; color: #065f46; }
+.quiz-feedback.wrong { background: #fef2f2; color: #991b1b; }
+
+/* ============================================================
+   互动组件：AI 模拟对话
+   ============================================================ */
+.dialogue-container { background: var(--card); border-radius: var(--radius); padding: 28px; margin: 24px 0; box-shadow: var(--shadow-lg); border: 2px solid var(--border); }
+.dialogue-scenario { background: #f8fafc; padding: 14px 16px; border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; }
+.customer-bubble { background: #f1f5f9; padding: 16px 20px; border-radius: 16px 16px 16px 4px; font-size: 14px; line-height: 1.7; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+.reply-input { width: 100%; min-height: 120px; padding: 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; line-height: 1.7; resize: vertical; }
+.reply-input:focus { border-color: var(--primary-light); outline: none; }
+.reply-input:disabled { background: #f8fafc; color: var(--text-secondary); }
+.dialogue-actions { display: flex; gap: 12px; margin-top: 16px; }
+.ai-feedback-panel { display: none; margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.ai-feedback-panel.show { display: block; }
+
+/* ============================================================
+   互动组件：终极考核 Role-play
+   ============================================================ */
+.roleplay-container { background: var(--card); border-radius: var(--radius); padding: 28px; margin: 24px 0; box-shadow: var(--shadow-lg); border: 2px solid var(--accent); }
+.rp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.rp-header h3 { font-size: 20px; font-weight: 800; color: var(--text); }
+.rp-scenario { background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 16px 20px; border-radius: var(--radius-sm); font-size: 14px; line-height: 1.7; margin-bottom: 20px; border-left: 4px solid var(--accent); }
+.rp-progress-bar { display: flex; gap: 4px; margin-bottom: 20px; }
+.rp-progress-seg { flex: 1; height: 6px; border-radius: 3px; background: #e2e8f0; transition: all 0.3s; }
+.rp-progress-seg.active { background: var(--accent); }
+.rp-progress-seg.done { background: var(--success); }
+.rp-round-label { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.rp-task-hint { font-size: 13px; color: var(--text-secondary); background: #f8fafc; padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 16px; line-height: 1.6; }
+.rp-parent-bubble { background: #f1f5f9; padding: 16px 20px; border-radius: 16px 16px 16px 4px; font-size: 15px; line-height: 1.7; margin-bottom: 16px; border: 1px solid #e2e8f0; position: relative; }
+.rp-parent-bubble::before { content: '👩 家長'; position: absolute; top: -10px; left: 12px; background: #059669; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+.rp-input { width: 100%; min-height: 100px; padding: 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; line-height: 1.7; resize: vertical; }
+.rp-input:focus { border-color: var(--accent); outline: none; }
+.rp-actions { display: flex; gap: 12px; margin-top: 16px; }
+.rp-history { margin: 16px 0; max-height: 300px; overflow-y: auto; }
+.rp-history-item { padding: 10px 14px; border-radius: var(--radius-sm); margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+.rp-history-item.user { background: #dbeafe; text-align: right; margin-left: 40px; }
+.rp-history-item.parent { background: #f1f5f9; margin-right: 40px; }
+
+/* ============================================================
+   评分展示
+   ============================================================ */
+.score-display { text-align: center; margin-bottom: 16px; }
+.score-circle { width: 64px; height: 64px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; }
+.score-circle.high { background: #ecfdf5; color: #065f46; border: 3px solid var(--success); }
+.score-circle.medium { background: #fffbeb; color: #92400e; border: 3px solid var(--accent); }
+.score-circle.low { background: #fef2f2; color: #991b1b; border: 3px solid var(--danger); }
+
+.keywords-result { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.keyword-tag { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.keyword-tag.found { background: #ecfdf5; color: #065f46; }
+.keyword-tag.missing { background: #fef2f2; color: #991b1b; }
+
+.eval-dimensions { display: flex; gap: 16px; flex-wrap: wrap; }
+.eval-dim { flex: 1; min-width: 160px; background: var(--card); border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 20px; text-align: center; }
+.eval-dim h4 { font-size: 14px; margin-bottom: 8px; }
+.eval-dim .stars { font-size: 16px; margin: 8px 0; }
+
+/* ============================================================
+   AI 设置面板
+   ============================================================ */
+.rp-ai-settings { margin-bottom: 16px; border: 2px dashed var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+.rp-ai-toggle { width: 100%; padding: 12px 16px; background: #f8fafc; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+.rp-ai-toggle:hover { background: #f0f7ff; color: var(--primary); }
+.rp-ai-toggle .toggle-icon { transition: transform 0.2s; font-size: 10px; }
+.rp-ai-body { display: none; padding: 16px; background: #f8fafc; border-top: 1px dashed var(--border); }
+.rp-ai-body.open { display: block; }
+.rp-ai-body .field { margin-bottom: 12px; }
+.rp-ai-body .field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
+.rp-ai-body .field input, .rp-ai-body .field select { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; }
+.rp-ai-body .field input:focus, .rp-ai-body .field select:focus { border-color: var(--primary-light); outline: none; }
+.rp-ai-body .field-hint { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.rp-ai-status { font-size: 12px; padding: 4px 10px; border-radius: 10px; display: inline-block; }
+.rp-ai-status.active { background: #ecfdf5; color: #065f46; }
+.rp-ai-status.inactive { background: #fef2f2; color: #991b1b; }
+
+/* AI 打字指示器 */
+.rp-typing-indicator { display: none; padding: 12px 20px; background: #f1f5f9; border-radius: 16px 16px 16px 4px; margin: 8px 0; font-size: 13px; color: var(--text-secondary); align-items: center; gap: 8px; }
+.rp-typing-indicator.show { display: flex; }
+.typing-dots { display: flex; gap: 4px; }
+.typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: #94a3b8; animation: typingBounce 1.4s infinite ease-in-out; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+
+/* ============================================================
+   证书弹窗
+   ============================================================ */
+.cert-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
+.cert-overlay.show { display: flex; }
+.certificate-paper { background: #fff; border-radius: 16px; padding: 40px 32px; max-width: 560px; width: 90%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+.cert-title { font-size: 28px; font-weight: 800; color: #1d4ed8; margin-bottom: 8px; }
+.cert-sub { font-size: 12px; color: #64748b; letter-spacing: 0.1em; margin-bottom: 24px; }
+.cert-body { font-size: 15px; color: #1e293b; line-height: 2.2; }
+.cert-name { display: inline-block; border-bottom: 2px solid #2563eb; min-width: 100px; padding: 2px 8px; margin: 0 4px; outline: none; }
+.cert-course { font-weight: 700; color: #1d4ed8; margin: 8px 0; }
+.cert-score { margin: 20px 0; font-size: 16px; font-weight: 600; color: #10b981; }
+.cert-footer { display: flex; justify-content: space-between; font-size: 12px; color: #64748b; margin-top: 32px; border-top: 1px solid #e2e8f0; padding-top: 16px; }
+.cert-actions { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+
+/* ============================================================
+   按钮 & 导航
+   ============================================================ */
+.btn { display: inline-block; padding: 12px 28px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+.btn-success { background: var(--success); }
+.btn-success:hover { background: #059669; }
+
+.section-nav-buttons { display: flex; justify-content: space-between; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
+
+/* ============================================================
+   笔记面板 & Toast
+   ============================================================ */
+.notes-toggle { position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; border: none; cursor: pointer; font-size: 20px; box-shadow: var(--shadow-lg); z-index: 50; display: flex; align-items: center; justify-content: center; }
+.notes-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 300px; background: var(--card); box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 90; transform: translateX(100%); transition: transform 0.3s; padding: 24px; display: flex; flex-direction: column; }
+.notes-panel.open { transform: translateX(0); }
+.notes-panel h3 { margin-bottom: 12px; }
+.notes-panel textarea { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; font-family: inherit; font-size: 13px; resize: none; }
+
+.toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 24px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; z-index: 300; animation: toastIn 0.3s ease; box-shadow: var(--shadow-lg); }
+.toast.success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.toast.warning { background: #fffbeb; color: #92400e; border: 1px solid #fcd34d; }
+.toast.info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================
+   移动端适配 (≤1024px)
+   ============================================================ */
+.mobile-header { display: none; background: var(--sidebar-bg); color: #fff; padding: 10px 16px; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 50; min-height: 48px; }
+.mobile-header .mh-title { flex: 1; font-weight: 700; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mobile-header .mh-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 4px 8px; line-height: 1; min-width: 36px; min-height: 36px; display: flex; align-items: center; justify-content: center; }
+.mobile-progress-bar { display: none; height: 3px; background: rgba(255,255,255,0.15); position: sticky; top: 48px; z-index: 49; }
+.mobile-progress-bar .mpb-fill { height: 100%; background: var(--primary-light); transition: width 0.5s ease; width: 0%; }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; }
+
+@media (max-width: 1024px) {
+  body { flex-direction: column; }
+  .sidebar { transform: translateX(-100%); width: 280px; min-width: 280px; transition: transform 0.3s ease; }
+  .sidebar.open { transform: translateX(0); z-index: 110; }
+  .sidebar-overlay.show { display: block; }
+  .sidebar-close-btn { display: block; }
+  .mobile-header { display: flex; }
+  .mobile-progress-bar { display: block; }
+  .main { margin-left: 0 !important; padding: 16px 14px 80px; max-width: 100%; }
+  .section-header h1 { font-size: 20px; }
+  .section-badge { font-size: 11px; padding: 3px 10px; }
+  .card { padding: 16px; border-radius: 10px; }
+  .card-title { font-size: 16px; }
+  .flow-steps { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+  .quiz-option { padding: 14px 12px; min-height: 44px; font-size: 13px; }
+  .dialogue-actions, .rp-actions { flex-direction: column; }
+  .dialogue-actions .btn, .rp-actions .btn { width: 100%; }
+  .section-nav-buttons { flex-direction: column; gap: 10px; position: sticky; bottom: 0; background: var(--bg); padding: 12px 0; border-top: 1px solid var(--border); margin-top: 24px; }
+  .section-nav-buttons .btn { width: 100%; text-align: center; padding: 14px 24px; font-size: 15px; }
+  .section-nav-buttons > div { width: 100%; }
+  .notes-toggle { display: none; }
+  .notes-panel { width: 100%; max-width: 340px; }
+  .toast { left: 50%; right: auto; transform: translateX(-50%); bottom: 80px; white-space: nowrap; font-size: 13px; padding: 10px 20px; }
+  .certificate-paper { width: 95%; max-width: 95%; padding: 28px 20px; max-height: 90vh; overflow-y: auto; }
+  .cert-title { font-size: 22px; }
+  .cert-body { font-size: 13px; line-height: 1.8; }
+  .cert-actions { flex-direction: column; }
+  .cert-actions .btn { width: 100%; }
+  .score-circle { width: 56px; height: 56px; font-size: 22px; }
+  .keyword-tag { font-size: 11px; padding: 3px 8px; }
+  .detail-table { font-size: 12px; }
+  .detail-table th, .detail-table td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     侧边栏
+     ============================================================ -->
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="关闭菜单">✕</button>
+  <div class="sidebar-header">
+    <h3>微课培训</h3>
+    <div class="course-title">港澳团队学员服务流程及话术</div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="progress-label"><span>学习进度</span><span id="progressPercent">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="study-timer">
+    <span class="timer-icon">⏱</span>
+    <span class="timer-display" id="timerDisplay">00:00</span>
+    <span class="timer-label">学习时长</span>
+  </div>
+  <div class="sidebar-nav" id="sidebarNav"></div>
+  <div class="sidebar-footer">
+    <button onclick="toggleNotes()" style="background:none;border:1px solid rgba(255,255,255,0.15);color:var(--sidebar-text);padding:6px 16px;border-radius:20px;font-size:12px;cursor:pointer;width:100%;">📝 学习笔记</button>
+  </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ============================================================
+     移动端顶部导航
+     ============================================================ -->
+<div class="mobile-header">
+  <button class="mh-btn" onclick="toggleSidebar()" aria-label="菜单">☰</button>
+  <span class="mh-title" id="mhTitle">港澳团队学员服务流程及话术</span>
+  <span style="font-size:12px;opacity:0.7;white-space:nowrap;" id="mhTimer">00:00</span>
+</div>
+<div class="mobile-progress-bar"><div class="mpb-fill" id="mpbFill"></div></div>
+
+<!-- ============================================================
+     主内容区
+     ============================================================ -->
+<main class="main" id="mainContent"></main>
+
+<!-- ============================================================
+     证书弹窗
+     ============================================================ -->
+<div class="cert-overlay" id="certOverlay">
+  <div class="certificate-paper" id="certPaper">
+    <div class="cert-title">🏆 结业证书</div>
+    <div class="cert-sub">CERTIFICATE OF COMPLETION</div>
+    <div class="cert-body">
+      <p>兹证明</p>
+      <p><span class="cert-name" id="certStudentName" contenteditable="true">请填写姓名</span></p>
+      <p>已完成</p>
+      <p class="cert-course">港澳团队学员服务流程及话术</p>
+      <p>全部课程内容并通过考核</p>
+      <div class="cert-score" id="certScore">综合评定：通过</div>
+    </div>
+    <div class="cert-footer">
+      <span id="certDate"></span>
+      <span>VIPTHINK</span>
+    </div>
+    <div class="cert-actions">
+      <button class="btn" onclick="printCertificate()">🖨️ 打印证书</button>
+      <button class="btn btn-outline" onclick="closeCertificate()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     笔记面板
+     ============================================================ -->
+<button class="notes-toggle" onclick="toggleNotes()">📝</button>
+<div class="notes-panel" id="notesPanel">
+  <h3>📝 学习笔记 — <span id="notesChapterLabel" style="font-weight:400;font-size:13px;color:var(--text-secondary);"></span></h3>
+  <textarea id="notesTextarea" placeholder="在这里记录你的学习心得..."></textarea>
+  <button class="btn btn-outline" onclick="toggleNotes()" style="margin-top:12px;width:100%;">关闭</button>
+</div>
+
+<script>
+// ============================================================
+// 课程数据
+// ============================================================
+const courseData = {
+  title: '港澳团队学员服务流程及话术',
+  sections: [
+    // ========== 第1章 ==========
+    {
+      id: 's1',
+      title: '首通流程与话术',
+      duration: '15-20分钟',
+      icon: '1',
+      type: 'content',
+      content: `
+<div class="section-header">
+  <span class="section-badge">第一章</span>
+  <h1>首通流程与话术</h1>
+  <span class="duration">⏱ 预估时长 15-20 分钟</span>
+</div>
+
+<div class="card">
+  <div class="card-title">📋 通话前準備</div>
+  <p style="margin-bottom:12px;">首通電話需在學員報名後 <strong>24小時內</strong> 完成。通話前需做好以下準備：</p>
+  <div class="highlight-box">
+    <strong>查看學員後臺信息：</strong>
+    <ul class="info-list" style="margin-top:8px;">
+      <li>學員基本信息：姓名、性別、年齡、年級</li>
+      <li>合同及課時詳情：購課時間、價格、總課時數、是否有贈送</li>
+      <li>學員排課信息：上課時間及首課時間，級別，授課老師信息，時差</li>
+      <li>地址信息：地址管理裏是否有完整地址</li>
+      <li>其它：課程顧問跟進記錄、是否已打卡、教具教材是否寄送等</li>
+    </ul>
+  </div>
+  <div class="highlight-box warning">
+    <strong>與課程顧問或教務老師交接：</strong>
+    <ul class="info-list" style="margin-top:8px;">
+      <li>確認後臺學員基本信息，若有錯誤及時修改</li>
+      <li>詢問針對家長，是否有其它注意事項</li>
+      <li>釘釘聯系課程顧問若無回復，則根據自己時間安排先行聯系家長</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📞 首通電話流程（6步驟）</div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">1</div><h4>開場白</h4><p>自我介紹、表明來意、確認方便（5-10分鐘）</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">2</div><h4>了解學員</h4><p>基本信息、報名初衷、過往學習經歷、興趣安排、決策人</p></div>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">3</div><h4>確認課包</h4><p>課包價格、課時數、排課時間、班型、寄送信息</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">4</div><h4>介紹APP</h4><p>家長端1-2個關鍵功能、豌豆素質教育服務號</p></div>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">5</div><h4>上課規則</h4><p>請假、補課、停課、曠課規則，減少異議</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">6</div><h4>轉介紹福利</h4><p>打卡規則、轉介紹福利、升艙鋪墊</p></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">💬 開場白話術參考</div>
+  <div class="script-block">
+    <p><span class="lp-line">LP:</span> 小朋友家長您好，請問係XX媽媽/爸爸嗎？我係豌豆益智嘅班主任XX老師，好開心可以同您電話溝通。您報名咗我哋嘅課程，分配到我嘅班級，以後小朋友喺豌豆嘅學習，會由我全程負責跟進。請問您而家方便聽電話嗎？</p>
+    <p style="margin-top:8px;"><span class="parent-line">家長:</span> 方便</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 今日打畀您，主要想同您確認上課相關信息，講下開課嘅注意事項，亦都想了解下小朋友嘅基礎情況，咁我哋可以更好咁幫助小朋友喺豌豆學習同成長。</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">💬 學員狀況了解話術參考</div>
+  <div class="script-block">
+    <p><span class="lp-line">LP:</span> XX小朋友今年係XX歲對嗎？係男仔定女仔呀？而家係讀緊XX年級，對嗎？</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 我想了解下，我哋小朋友之前有冇喺課外上過數學思維課？咁小朋友會識認同點數20以內嘅數嗎？識唔識基礎嘅平面圖形？可以熟練計算20以內嘅加減嗎？</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 小朋友平時願唔願意主動表達？性格係偏慢熱啲定活潑啲？平時係用短語定句子表達？</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 媽咪今次報名思維課，想提升小朋友邊方面嘅能力？</p>
+  </div>
+  <div class="highlight-box">
+    <strong>💡 評估維度：</strong>識數（點數、數序）｜運算（加減、進退位）｜空間圖形（平面、立體）｜表達能力（關鍵詞→句子→邏輯→比喻）
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📋 核對課程信息要點</div>
+  <table class="detail-table">
+    <tr><th>項目</th><th>需確認內容</th></tr>
+    <tr><td>課時包</td><td>總課時、贈送課時、打卡次數、課程有效期、價格</td></tr>
+    <tr><td>上課安排</td><td>排課時間、首課時間、級別、語言、課時長（40分鐘）、班型（6-8人）</td></tr>
+    <tr><td>APP安裝</td><td>學生端+家長端APP、賬號（手機號）、初始密碼（123456）</td></tr>
+    <tr><td>課後環節</td><td>課後鞏固（約5題）、小老師錄影片環節</td></tr>
+    <tr><td>寄送信息</td><td>確認寄送地址、電話、收件人（僅限香港）</td></tr>
+  </table>
+  <div class="script-block" style="margin-top:18px;">
+    <strong>💬 確認課包參考話術：</strong><br>
+    「我同媽咪/爸爸確認一下課程信息。我哋呢個係豌豆益智嘅<strong>40課時包</strong>，另外贈送X課時，一共係X課時。小朋友嘅課程係由<strong>SX級別</strong>開始，授課語言係<strong>廣東話</strong>，上課時間係每週X同週X嘅<strong>XX:XX</strong>，第一次上課係<strong>週X晚上XX:XX</strong>，每節課<strong>40分鐘</strong>，呢個班有<strong>6-8人</strong>。媽咪記得定好鬧鐘，準時到課。另外確認下寄送地址係咪完整？」
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">⚠️ 上課規則（重要）</div>
+  <div class="highlight-box danger">
+    <table class="detail-table" style="margin:0;">
+      <tr><th>規則</th><th>具體內容</th></tr>
+      <tr><td>請假</td><td>提前24小時家長端申請；家長端最遲課前3小時，LP最遲課前1小時。40課時包有7次免費請假機會</td></tr>
+      <tr><td>補課</td><td>請假後及時補課，直播補課扣除相應課時；超次請假可選AI視頻補課</td></tr>
+      <tr><td>停課/休學</td><td>一次休學機會，最長30日，不保留原班級學位，需提前3日辦理</td></tr>
+      <tr><td>曠課</td><td>未請假未出席則曠課，課時正常扣除</td></tr>
+    </table>
+  </div>
+  <div class="script-block" style="margin-top:18px;">
+    <strong>💬 上課規則參考話術：</strong><br>
+    <div style="margin-top:8px;line-height:1.8;">
+      <strong>① 請假：</strong>「平台設置請假就係希望小朋友能夠<strong>有規律地上課</strong>，唔好落咗進度。實在有事先可以停課。如果要請假，我哋設有 <strong>7 次免費請假保護次數</strong>，喺<strong>有保護次數可使用嘅時候請假，唔會消耗課時</strong>，比較人性化，唔使太擔心。」<br><br>
+      <strong>② 打卡：</strong>「寶貝媽媽，打卡可以好好咁<strong>記錄寶貝喺豌豆嘅成長同變化</strong>，可能操作上麻煩少少。但<strong>班主任每週會喺禮拜一同禮拜四</strong>將當週嘅<strong>打卡海報同文案</strong>發畀您，您<strong>複製直接發到朋友圈</strong>，<strong>間隔24小時</strong>您將朋友圈截圖發畀班主任，<strong>由班主任幫您上傳</strong>就得喇，一個禮拜就耽誤您 <strong>2 分鐘</strong>時間，真係唔麻煩嘅。」<br>
+      <span style="color:#ef4444;">⚠️ 業務硬規則：朋友圈打卡<strong>不能分組、不能僅自己可見</strong></span><br><br>
+      <strong>③ 停課：</strong>「寶貝媽媽，課包內係<strong>贈送停課機會</strong>嘅，如果是放假或者有考試唔能夠上課，<strong>可以停課</strong>，<strong>30 日內再復課</strong>就得，<strong>唔會消耗您課時</strong>。」
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📱 豌豆素質APP & 服務號</div>
+  <ul class="info-list">
+    <li><strong>學生端APP：</strong>上課使用，課前預熱影片</li>
+    <li><strong>家長端APP重點功能：</strong>小老師視頻、課程圖標（預熱/上課/鞏固）、在線旁聽</li>
+    <li><strong>賬號密碼：</strong>手機號登入，初始密碼123456，建議儘快修改</li>
+    <li><strong>服務號：</strong>豌豆素質教育服務號，自動發送上課提醒和福利活動</li>
+  </ul>
+  <div class="script-block" style="margin-top:18px;">
+    <strong>💬 介紹APP & 服務號參考話術：</strong><br>
+    「上課會用『<strong>豌豆素質學生端</strong>』APP，您作為家長需要下載『<strong>豌豆素質家長端</strong>』APP。家長端有幾個重點功能：首頁『<strong>小老師視頻</strong>』，每節課後小朋友做小老師講解一道題，您幫手錄低上傳，加深理解同表達能力；底部『<strong>課程</strong>』圖標，入面可以睇到預熱、上課同鞏固情況，上課時仲可以『<strong>在線旁聽</strong>』遠程睇到小朋友上堂實況。賬號都用您報名嘅手機號登入，<strong>初始密碼係123456</strong>，建議登入後儘快改密碼。另外我稍後會推『<strong>豌豆素質教育服務號</strong>』名片畀您，會自動發送上課提醒同福利活動。」
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">🎁 福利介紹</div>
+  <div class="strategy-grid" style="display:flex;gap:16px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:200px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-sm);padding:20px;text-align:center;box-shadow:var(--shadow);">
+      <div style="font-size:32px;margin-bottom:8px;">📝</div>
+      <h4 style="font-size:15px;font-weight:700;">打卡福利</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">每週朋友圈打卡1次，獲2000豌豆幣；8000豌豆幣可兌換1節課</p>
+    </div>
+    <div style="flex:1;min-width:200px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-sm);padding:20px;text-align:center;box-shadow:var(--shadow);">
+      <div style="font-size:32px;margin-bottom:8px;">🤝</div>
+      <h4 style="font-size:15px;font-weight:700;">轉介紹福利</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">推薦朋友試听獲額外豌豆幣，報名獲贈更多課時</p>
+    </div>
+    <div style="flex:1;min-width:200px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-sm);padding:20px;text-align:center;box-shadow:var(--shadow);">
+      <div style="font-size:32px;margin-bottom:8px;">🚀</div>
+      <h4 style="font-size:15px;font-weight:700;">升艙權益</h4>
+      <p style="font-size:13px;color:var(--text-secondary);">開課3個月內補差價升級，比正常續費平2000-3000蚊</p>
+    </div>
+  </div>
+  <div class="script-block" style="margin-top:18px;">
+    <strong>💬 福利介紹參考話術：</strong><br>
+    「另外有兩個福利等緊您：<strong>打卡福利</strong>，每週喺朋友圈打一次卡可以攞到<strong>2000豌豆幣</strong>，<strong>8000豌豆幣</strong>可以兌換一節課程；<strong>轉介紹福利</strong>，朋友小朋友完成試听您就獲得額外豌豆幣，報名仲會獲贈課時。另外您有個專屬權益，開課起<strong>三個月內</strong>可以補差價方式以優惠價規劃完整級別學習，比正常續費<strong>平2000-3000蚊</strong>，等小朋友上咗幾節課適應得好我再同您詳細商量。」
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">👥 首通後建群</div>
+  <ul class="info-list">
+    <li>首通完成後建立微信學習群組</li>
+    <li>邀請授課老師進群</li>
+    <li>群內發送微信服務留言（上課提醒模板）</li>
+    <li>告知家長休息日（通常星期一），緊急情況可打電話</li>
+  </ul>
+</div>
+
+<!-- 嵌入式选择题 -->
+<div id="quiz-quiz1"></div>
+
+<!-- 嵌入式AI对话 -->
+<div id="dialogue-quiz1"></div>
+`
+    },
+
+    // ========== 第2章 ==========
+    {
+      id: 's2',
+      title: '首课回访',
+      duration: '10-15分钟',
+      icon: '2',
+      type: 'content',
+      content: `
+<div class="section-header">
+  <span class="section-badge">第二章</span>
+  <h1>首課回訪（48小時）</h1>
+  <span class="duration">⏱ 预估时长 10-15 分钟</span>
+</div>
+
+<div class="card">
+  <div class="card-title">📱 課前微信提醒（3步驟）</div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">1</div><h4>提醒首課及注意事項</h4><p>告知首課時間及第一節課內容，確認是否能到課，確認設備網絡和APP下載</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">2</div><h4>介紹學習閉環</h4><p>簡單介紹豌豆學習閉環，重點強調預習</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">3</div><h4>確認寄收地址</h4><p>確認收貨地址是否填寫完整</p></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">👀 首課監課</div>
+  <div class="highlight-box">
+    <p>首課進行時，班主任需在線監課，關注學員上課狀態：</p>
+    <ul class="info-list" style="margin-top:8px;">
+      <li>學員是否準時進入課堂</li>
+      <li>課堂參與度和互動情況</li>
+      <li>技術問題及時處理</li>
+      <li>記錄學員表現，為課後回訪做準備</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📞 首課後回訪概覽</div>
+  <table class="detail-table">
+    <tr><th>項目</th><th>內容</th></tr>
+    <tr><td>回訪目的</td><td>跟進學員上課感受，及時處理異議問題；督促學生養成良好學習習慣</td></tr>
+    <tr><td>回訪時間</td><td>首課結束後 <strong>48小時內</strong></td></tr>
+    <tr><td>回訪準備</td><td>與授課老師溝通學員首課學情；查看學員首課報告，並復制鏈接給家長</td></tr>
+    <tr><td>回訪方式</td><td>電話回訪</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title">📋 首課後回訪流程（5步驟）</div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">1</div><h4>開場白</h4><p>詢問家長是否方便，說明回訪目的</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">2</div><h4>了解滿意度</h4><p>了解家長對首課的滿意度</p></div>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">3</div><h4>監課反饋</h4><p>反饋監課情況及授課老師反饋，分享首課報告</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">4</div><h4>強調課後</h4><p>強調課後鞏固和小老師視頻，督促學習閉環</p></div>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="step-num">5</div><h4>結束語</h4><p>確認無其他問題，保持聯絡</p></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">💬 回訪話術參考</div>
+  <div class="script-block">
+    <p><span class="lp-line">LP:</span> 小朋友媽咪您好，小朋友啱啱上完第一堂課，我打嚟同您反饋下小朋友嘅上課情況。請問您而家方便嗎？</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 首先同您分享下小朋友嘅課堂表現。呢節課主要學習嘅係XX知識，小朋友課堂答對咗8道題，正確率80%！課後練習都已經完成，正確率100%。說明寶貝呢節課知識掌握得非常好。</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 呢節課涉及到小朋友觀察力、分析能力、推理能力嘅培養。建議家長課後可以通過擺放小物件，創造位置對應關係，幫助小朋友鞏固課堂知識。</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 另外提醒媽咪，記得帶小朋友完成課後鞏固同小老師視頻，咁樣可以加深理解同表達能力。有冇其他問題想問？</p>
+  </div>
+</div>
+
+<div class="highlight-box success">
+  <strong>✅ 回訪要點：</strong>
+  <ul class="info-list" style="margin-top:8px;">
+    <li>先與授課老師溝通，了解學員首課學情</li>
+    <li>查看學員首課報告，復制鏈接發給家長</li>
+    <li>反饋至少1個閃光點和1個可提升點</li>
+    <li>強調課後鞏固和小老師視頻的重要性</li>
+    <li>確保雙向溝通，不是單方面信息傳遞</li>
+  </ul>
+</div>
+
+<!-- 嵌入式选择题 -->
+<div id="quiz-quiz2"></div>
+
+<!-- 嵌入式AI对话 -->
+<div id="dialogue-quiz2"></div>
+`
+    },
+
+    // ========== 第3章 ==========
+    {
+      id: 's3',
+      title: '专题&月度回访',
+      duration: '8-10分钟',
+      icon: '3',
+      type: 'content',
+      content: `
+<div class="section-header">
+  <span class="section-badge">第三章</span>
+  <h1>專題&月度回訪服務</h1>
+  <span class="duration">⏱ 预估时长 8-10 分钟</span>
+</div>
+
+<div class="card">
+  <div class="card-title">📊 專題反饋</div>
+  <table class="detail-table">
+    <tr><th>項目</th><th>內容</th></tr>
+    <tr><td>回訪時間</td><td>首次專題結束後的 <strong>48小時內</strong></td></tr>
+    <tr><td>回訪頻率</td><td><strong>2週1次</strong>（新生試學期）</td></tr>
+    <tr><td>回訪形式</td><td>電話回訪 / 微信回訪</td></tr>
+  </table>
+  <div class="highlight-box">
+    <strong>反饋內容：</strong>
+    <ul class="info-list" style="margin-top:8px;">
+      <li>本專題所學知識重點文字描述 + 圖片總結（運營按專題提供模板）</li>
+      <li>根據監課、課後看課，反饋至少1個學員閃光點和1個學習中問題點，並給出解決建議</li>
+      <li>至少向家長提一個問題（如：課後孩子感覺學的怎麼樣），確保雙向溝通</li>
+      <li>下節課課程預告</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📅 月度回訪</div>
+  <table class="detail-table">
+    <tr><th>項目</th><th>內容</th></tr>
+    <tr><td>回訪頻率</td><td><strong>每月1次</strong></td></tr>
+    <tr><td>回訪形式</td><td>電話</td></tr>
+    <tr><td>名單來源</td><td>每月運營提供需月度回訪的學員名單</td></tr>
+    <tr><td>跟進標準</td><td>每個月跟進1次有效或3次無效</td></tr>
+  </table>
+  <div class="highlight-box warning">
+    <strong>回訪內容：</strong>
+    <ul class="info-list" style="margin-top:8px;">
+      <li>本月所學專題的內容及能力達成情況</li>
+      <li>主動提問了解用戶學習感受</li>
+      <li>結合監課，反饋學員日常學習表現（薄弱點 + 進步點，側重效果外化）</li>
+      <li>學習規劃</li>
+      <li>異議處理，結束</li>
+    </ul>
+  </div>
+</div>
+
+<div class="highlight-box success">
+  <strong>💡 回訪技巧要點：</strong>
+  <ul class="info-list" style="margin-top:8px;">
+    <li>效果外化：用具體數據和案例展示學員進步</li>
+    <li>雙向溝通：每個反饋點後主動詢問家長看法</li>
+    <li>問題導向：發現問題及時給出解決建議</li>
+    <li>持續跟進：建立長期服務關係，不是一次性通話</li>
+  </ul>
+</div>
+
+<!-- 嵌入式选择题 -->
+<div id="quiz-quiz3"></div>
+
+<!-- 嵌入式AI对话 -->
+<div id="dialogue-quiz3"></div>
+`
+    },
+
+    // ========== 第4章 ==========
+    {
+      id: 's4',
+      title: '老生交接服务',
+      duration: '15-20分钟',
+      icon: '4',
+      type: 'content',
+      content: `
+<div class="section-header">
+  <span class="section-badge">第四章</span>
+  <h1>老生交接服務</h1>
+  <span class="duration">⏱ 预估时长 15-20 分钟</span>
+</div>
+
+<div class="card">
+  <div class="card-title">📋 交接服務定義</div>
+  <div class="highlight-box">
+    <p>當學員更換班主任時即存在交接服務，一般發生於：</p>
+    <ul class="info-list" style="margin-top:8px;">
+      <li>老班主任離職需更換</li>
+      <li>家長主動提出更換班主任</li>
+      <li>組內資源調整</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">⚠️ 交接注意事項</div>
+  <div class="highlight-box danger">
+    <ul class="info-list">
+      <li>交接後 <strong>24小時內進群</strong>，自我介紹並@家長</li>
+      <li>如果24小時內來不及進群，建議電話+添加微信+發送手機短信觸達</li>
+      <li>LP進群後24小時內需完成：檢查上課老師是否在群、添加家長微信好友</li>
+      <li>了解前班主任是否有未解決的問題，及時幫家長解決</li>
+      <li>群內消息需及時回復，不能出現服務斷檔，造成不必要的投訴</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">💬 老生交接5步話術</div>
+  <table class="detail-table">
+    <tr><th>步驟</th><th>話術要點</th></tr>
+    <tr><td><strong>第一步：開場白</strong></td><td>自我介紹（新班主任身份）+ 說明交接原因（崗位調動）+ 安撫家長（工作經驗豐富，會第一時間解決問題）+ 說明來意（了解近期上課情況，反饋+了解問題）</td></tr>
+    <tr><td><strong>第二步：確認遺留問題</strong></td><td>主動詢問是否有遺留問題未解決，解決遺留問題以樹立認真負責的形象</td></tr>
+    <tr><td><strong>第三步：近期學習反饋</strong></td><td>本專題知識重點 + 監課/課後看課反饋（至少1個閃光點+1個問題點+解決建議）+ 至少向家長提一個問題，確保雙向溝通</td></tr>
+    <tr><td><strong>第四步：提醒學習閉環</strong></td><td>建議家長堅持提醒小朋友預習和複習，強調完整高效學習閉環離不開預習和複習</td></tr>
+    <tr><td><strong>第五步：結束語</strong></td><td>確認無其他問題 + 表達溝通愉快 + 加入學習群可隨時聯繫 + 保持溝通</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-title">💬 交接開場白話術參考</div>
+  <div class="script-block">
+    <p><span class="lp-line">LP:</span> xx媽媽，您好！我是豌豆班主任XX老師。您現在方便接電話嗎？是這樣的，之前咱們的xx班主任因為崗位調動的原因不能繼續陪伴小朋友了，XX老師也和我做了工作交接，接下來小朋友在豌豆的學習也會由我來跟進和反饋。</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 但是您放心，我這邊也是在咱們豌豆工作很長時間了，所以媽媽有什麽問題可以及時跟我說，我會第一時間幫您解決。</p>
+    <p style="margin-top:8px;"><span class="lp-line">LP:</span> 另外今天聯系您，主要是我在接到xx小朋友後，也去詳細了解了下他最近一個月的上課情況，想跟媽媽您這邊反饋一下，也想看看媽媽這邊有沒有其它什麽問題。</p>
+  </div>
+</div>
+
+<!-- 嵌入式选择题 -->
+<div id="quiz-quiz4"></div>
+
+<!-- 嵌入式AI对话 -->
+<div id="dialogue-quiz4"></div>
+
+<!-- 终极考核 Role-play -->
+<div id="roleplay-container"></div>
+`
+    }
+  ]
+};
+
+// ============================================================
+// 互动练习数据
+// ============================================================
+const quizzes = {
+  // ---- 第1章选择题（5道） ----
+  quiz1: {
+    quizId: 'quiz1',
+    questions: [
+      {
+        question: '首通電話需在學員報名後多長時間內完成？',
+        options: [
+          { label: 'A', text: '12小時內' },
+          { label: 'B', text: '24小時內' },
+          { label: 'C', text: '48小時內' },
+          { label: 'D', text: '72小時內' }
+        ],
+        correct: 1,
+        feedback_correct: '✅ 正確！首通電話需在學員報名後 <strong>24小時內</strong> 完成，這是港澳團隊的服務標準。',
+        feedback_wrong: '❌ 不正確。首通電話需在學員報名後 <strong>24小時內</strong> 完成。請記住這個重要的時間節點。'
+      },
+      {
+        question: '確認課包時，以下哪一項資訊<strong>不需要</strong>核對？',
+        options: [
+          { label: 'A', text: '總課時、贈送課時、打卡次數' },
+          { label: 'B', text: '上課時間、級別、語言、班型' },
+          { label: 'C', text: '寄送地址（僅限香港）' },
+          { label: 'D', text: '授課老師的住址和家庭背景' }
+        ],
+        correct: 3,
+        feedback_correct: '✅ 正確！首通電話只核對<strong>課包信息、APP安裝、課後環節、寄送信息</strong>，無需向家長透露老師私人信息。',
+        feedback_wrong: '❌ 不正確。首通核對內容包括：總課時/贈送課時/打卡次數、上課時間/級別/語言/班型、寄送地址，<strong>不涉及授課老師的私人信息</strong>。'
+      },
+      {
+        question: '家長想請假，根據上課規則，下列哪個做法<strong>不正確</strong>？',
+        options: [
+          { label: 'A', text: '提前24小時喺家長端申請請假' },
+          { label: 'B', text: '40課時包有7次免費請假機會' },
+          { label: 'C', text: '當日上課前10分鐘先打電話給LP代請假' },
+          { label: 'D', text: '請假後及時補課，直播補課扣除相應課時' }
+        ],
+        correct: 2,
+        feedback_correct: '✅ 正確！請假需提前操作：家長端<strong>最遲課前3小時</strong>，LP<strong>最遲課前1小時</strong>。當日上課前10分鐘已超過LP代請的截止時間，會算曠課。',
+        feedback_wrong: '❌ 不正確。請假必須<strong>提前</strong>操作：家長端最遲<strong>課前3小時</strong>，LP最遲<strong>課前1小時</strong>。當日10分鐘前來電已超時，會當曠課處理。'
+      },
+      {
+        question: '家長端APP的賬號密碼，下列說法正確的是？',
+        options: [
+          { label: 'A', text: '賬號係家長自己新註冊的郵箱' },
+          { label: 'B', text: '初始密碼係123456，建議登入後儘快修改' },
+          { label: 'C', text: '必須到門店現場才能設置密碼' },
+          { label: 'D', text: '每次上課都要重新申請臨時密碼' }
+        ],
+        correct: 1,
+        feedback_correct: '✅ 正確！賬號用<strong>報名手機號</strong>登入，<strong>初始密碼123456</strong>，建議登入後儘快修改。',
+        feedback_wrong: '❌ 不正確。賬號 = <strong>報名手機號</strong>，初始密碼 = <strong>123456</strong>，建議登入後儘快修改。'
+      },
+      {
+        question: '關於福利介紹，下列哪個金額/數字是<strong>不正確</strong>的？',
+        options: [
+          { label: 'A', text: '每週朋友圈打卡可獲2000豌豆幣' },
+          { label: 'B', text: '8000豌豆幣可兌換1節課程' },
+          { label: 'C', text: '升艙權益開課3個月內補差價，比正常續費平2000-3000蚊' },
+          { label: 'D', text: '轉介紹一位朋友即可獲得5000元現金獎勵' }
+        ],
+        correct: 3,
+        feedback_correct: '✅ 正確！轉介紹福利是<strong>額外豌豆幣 + 報名後獲贈課時</strong>，並無「5000元現金獎勵」這一項，避免向家長錯誤承諾。',
+        feedback_wrong: '❌ 不正確。轉介紹獎勵為<strong>額外豌豆幣 + 報名獲贈課時</strong>，沒有「5000元現金獎勵」。介紹福利時切勿誇大或虛構，避免後續糾紛。'
+      }
+    ]
+  },
+  // ---- 第1章AI对话 ----
+  dialogue1: {
+    isDialogue: true,
+    quizId: 'dialogue1',
+    question: '喂，老師你好。關於小朋友嘅課程我有個問題想問。你話請假機會得7次，但我覺得太少啦，小朋友成日病，萬一請假唔夠點算？同埋你講嗰個朋友圈打卡，我唔係好想喺網上曬小朋友啲嘢，有冇其他辦法？',
+    scenario: '首通電話結尾，家長對你介紹的規則提出兩個異議：(1) 覺得7次請假機會太少不夠用；(2) 不願意在朋友圈打卡曬娃。請用專業且有同理心的方式一次性回應這兩個問題，並傳達 (3) 停課可解決長期請假需求。注意：朋友圈打卡**不能僅自己可見、不能分組**（業務硬規則）。',
+    expectedKeywords: [
+      { concept: '共情认同（请假）', terms: ['理解','明白','擔心','正常','考慮','唔使','有時候','小朋友'], weight: 10 },
+      { concept: '请假政策（不落进度）', terms: ['有規律','規律','進度','落','不落','不落進度','不耽誤','進度','趕上'], weight: 14 },
+      { concept: '请假保护次数', terms: ['保護','7次','免費','唔消耗','不消耗','不扣','保護次','保護機會'], weight: 14 },
+      { concept: '请假人性化', terms: ['人性化','彈性','合理','靈活','唔使擔心','有保障'], weight: 10 },
+      { concept: '打卡隐私理解', terms: ['理解','明白','隱私','尊重','唔想','顧慮','擔心','您嘅','您既'], weight: 10 },
+      { concept: '打卡价值（记录成长）', terms: ['記錄','成長','變化','足迹','回顧','看得到','見證'], weight: 12 },
+      { concept: '班主任代发海报', terms: ['班主任','海報','文案','周一','週一','周四','週四','代','幫您','幫你','上傳','截圖'], weight: 16 },
+      { concept: '打卡耗时承诺', terms: ['2分鐘','兩分鐘','唔多','不麻煩','唔麻煩','簡單','方便','快捷','耽誤'], weight: 12 },
+      { concept: '停课机会', terms: ['停課','休學','30天','30日','放假','考試','復課','復','不消耗','唔消耗'], weight: 14 },
+      { concept: '正向收尾', terms: ['冇問題','放心','唔使擔心','可以','隨時','找我','問我','保持','保持聯絡'], weight: 8 }
+    ],
+    referenceAnswer: '明白嘅媽咪，完全理解您嘅顧慮。關於請假，平台咁設置其實係希望小朋友可以有規律上課，唔好落咗進度，實在有事先可以停課。不過即使要請假，我哋設有7次免費請假保護次數，喺有保護次數可用嘅情況下請假都唔會消耗課時，比較人性化，唔使太擔心。\n\n至於朋友圈打卡，完全明白您嘅考慮。其實打卡主要係記錄小朋友喺豌豆嘅成長同變化，平台要求係**唔可以分組、唔可以僅自己可見**。但操作上真係唔麻煩，每週班主任會喺禮拜一同禮拜四畀您當週嘅打卡海報同文案，您直接複製發到朋友圈，間隔24小時之後將朋友圈截圖發畀班主任，由班主任幫您上傳系統就得喇，全程一個禮拜先耽誤您大概2分鐘時間。\n\n另外想同您講，如果之後遇到放假或者考試長期需要缺席，我哋課包內係**贈送停課機會**嘅，30日內再復課就得，**唔會消耗您課時**，所以真係有需要隨時同我講都得㗎。'
+  },
+  // ---- 第2章选择题 ----
+  quiz2: {
+    quizId: 'quiz2',
+    question: '首課回訪需在首課結束後多長時間內完成？',
+    options: [
+      { label: 'A', text: '24小時內' },
+      { label: 'B', text: '48小時內' },
+      { label: 'C', text: '72小時內' },
+      { label: 'D', text: '一週內' }
+    ],
+    correct: 1,
+    feedback_correct: '✅ 正確！首課回訪需在首課結束後48小時內完成，及時跟進學員上課感受。',
+    feedback_wrong: '❌ 不正確。首課回訪需在首課結束後 <strong>48小時內</strong> 完成。及時回訪能有效處理異議，建立信任。'
+  },
+  // ---- 第2章AI对话 ----
+  dialogue2: {
+    isDialogue: true,
+    quizId: 'dialogue2',
+    question: '小朋友啱啱上完第一堂課，我想了解下佢上課嘅情況。',
+    scenario: '學員剛結束第一節課。請撥打家長電話進行首課回訪，需了解家長對首課的滿意度，反饋學員課堂表現（閃光點+提升點），並強調課後學習閉環。',
+    expectedKeywords: [
+      { concept: '滿意度了解', terms: ['感覺','怎麼樣','滿意','體驗','喜歡','適應','習慣','打擾','方便','時間'], weight: 15 },
+      { concept: '課堂表現', terms: ['表現','答題','正確率','參與','專注','互動','積極'], weight: 15 },
+      { concept: '閃光點反饋', terms: ['進步','好','不錯','棒','閃光','優秀','掌握','唔錯','咁','不錯'], weight: 12 },
+      { concept: '提升建議', terms: ['建議','練習','鞏固','加強','提升','改善','通過','擺放'], weight: 12 },
+      { concept: '課後強調', terms: ['預習','複習','小老師','視頻','鞏固','課後','提醒'], weight: 12 },
+      { concept: '學習閉環', terms: ['閉環','預習','複習','鞏固','完整','高效','理解'], weight: 12 },
+      { concept: '雙向溝通', terms: ['問題','想問','覺得','看法','建議','其他','反饋','分享'], weight: 12 }
+    ],
+    referenceAnswer: '小朋友媽咪您好，小朋友啱啱上完第一堂課，我打嚟同您反饋下小朋友嘅上課情況。請問您而家方便嗎？時間會唔會打擾到您？首先同您分享下小朋友嘅課堂表現，呢節課小朋友答對咗8道題，正確率80%，表現好唔錯！課後練習都已經完成，正確率100%，掌握情況都幾理想。建議家長課後可以通過擺放小物件幫助小朋友鞏固知識，加強佢對所學內容嘅理解同表達能力。另外提醒媽咪，記得帶小朋友完成課後鞏固同小老師視頻，咁樣可以形成完整嘅學習閉環。有冇其他問題想問？'
+  },
+  // ---- 第3章选择题 ----
+  quiz3: {
+    quizId: 'quiz3',
+    question: '新生試學期的專題反饋頻率是？',
+    options: [
+      { label: 'A', text: '每週1次' },
+      { label: 'B', text: '每兩週1次' },
+      { label: 'C', text: '每月1次' },
+      { label: 'D', text: '每季度1次' }
+    ],
+    correct: 1,
+    feedback_correct: '✅ 正確！新生試學期的專題反饋頻率為每兩週1次，確保及時跟進學員學習情況。',
+    feedback_wrong: '❌ 不正確。新生試學期的專題反饋頻率為 <strong>每兩週1次</strong>。月度回訪才是每月1次。'
+  },
+  // ---- 第3章AI对话 ----
+  dialogue3: {
+    isDialogue: true,
+    quizId: 'dialogue3',
+    question: '老師你好，我想了解下小朋友呢個月嘅學習情況。',
+    scenario: '本月專題課程已結束，請撥打家長電話進行月度回訪。需反饋本月學習內容、學員進步點和薄弱點，並做學習規劃。',
+    expectedKeywords: [
+      { concept: '內容反饋', terms: ['專題','知識','重點','能力','達成','學習內容'], weight: 15 },
+      { concept: '進步反饋', terms: ['進步','閃光','提升','表現好','改善','好轉'], weight: 15 },
+      { concept: '薄弱反饋', terms: ['薄弱','問題','不足','建議','練習','鞏固','加強'], weight: 12 },
+      { concept: '效果外化', terms: ['正確率','答題','數據','案例','具體','表現'], weight: 12 },
+      { concept: '學習規劃', terms: ['規劃','下個月','目標','建議','方向','計劃'], weight: 12 },
+      { concept: '雙向溝通', terms: ['覺得','看法','問題','想問','建議','感覺'], weight: 12 },
+      { concept: '關懷用語', terms: ['辛苦','多謝','謝謝','加油','繼續','努力'], weight: 12 }
+    ],
+    referenceAnswer: '媽咪您好，本月專題課程已經結束，我打嚟同您反饋下小朋友呢個月嘅學習情況。呢個月我哋學習咗XX專題，小朋友整體表現唔錯，課堂答題正確率達到85%，比上月提升咗5個百分點，尤其係XX方面進步好明顯。不過喺XX方面仲有提升空間，建議平時可以多做XX練習。下個月我哋會進入XX專題學習，重點培養XX能力。媽咪覺得小朋友最近學習狀態點樣？有冇咩問題想了解？辛苦媽咪一直以來嘅支持，多謝您！小朋友要繼續加油努力呀！'
+  },
+  // ---- 第4章选择题 ----
+  quiz4: {
+    quizId: 'quiz4',
+    question: '老生交接後，新班主任需在多長時間內進群自我介紹？',
+    options: [
+      { label: 'A', text: '12小時內' },
+      { label: 'B', text: '24小時內' },
+      { label: 'C', text: '48小時內' },
+      { label: 'D', text: '即刻' }
+    ],
+    correct: 1,
+    feedback_correct: '✅ 正確！交接後24小時內需進群自我介紹並@家長，確保服務不斷檔。',
+    feedback_wrong: '❌ 不正確。交接後需在 <strong>24小時內</strong> 進群自我介紹並@家長。如果來不及進群，需電話+微信+短信觸達。'
+  },
+  // ---- 第4章AI对话 ----
+  dialogue4: {
+    isDialogue: true,
+    quizId: 'dialogue4',
+    question: '喂，你好（前任班主任已離職，家長接到陌生來電）',
+    scenario: '你是新接手的班主任，前任班主任因崗位調動離開。請致電家長完成交接：自我介紹、確認遺留問題、反饋近期學習、提醒學習閉環。',
+    expectedKeywords: [
+      { concept: '交接說明', terms: ['交接','班主任','調動','離職','更換','接手','接下來'], weight: 15 },
+      { concept: '自我介紹', terms: ['班主任','老師','豌豆','負責','跟進','新任'], weight: 15 },
+      { concept: '遺留問題', terms: ['遺留','問題','未解決','需要','幫忙','之前','有冇'], weight: 12 },
+      { concept: '學習反饋', terms: ['專題','表現','閃光','問題點','建議','上課','學習'], weight: 12 },
+      { concept: '學習閉環', terms: ['預習','複習','閉環','鞏固','吸收','完整'], weight: 12 },
+      { concept: '安撫信任', terms: ['放心','第一時間','解決','經驗','負責','認真'], weight: 12 },
+      { concept: '保持聯繫', terms: ['聯繫','聯絡','溝通','群','微信','隨時','問題'], weight: 12 }
+    ],
+    referenceAnswer: 'xx媽媽您好！我是豌豆班主任XX老師。您現在方便接電話嗎？是這樣的，之前咱們的xx班主任因為崗位調動不能繼續陪伴小朋友了，接下來小朋友在豌豆的學習會由我來跟進和反饋。您放心，我在豌豆工作很長時間了，有什麼問題可以及時跟我說，我會第一時間幫您解決。首先想問問媽咪，咱們之前有沒有什麼遺留問題沒解決？另外我也了解了小朋友最近的學習情況，想跟您反饋一下。老師建議媽咪堅持提醒小朋友預習和複習，完整的學習閉環可以幫助小朋友更好吸收知識。有什麼問題隨時聯繫我！'
+  }
+};
+
+// ============================================================
+// Role-play 终极考核数据（自由对话模式）
+// ============================================================
+const roleplayConfig = {
+  title: '首通電話話術 Role-play',
+  scenario: '你是豌豆益智的新任班主任（LP），剛接到一名新學員小明（5歲，幼兒園中班）。現在需要撥打首通電話給小明的媽媽，完成完整的首通服務流程。系統將扮演家長，<b>自由對話</b>，覆蓋以下流程即可結束並提交評分。',
+  openingLine: '喂，你好',
+  topics: [
+    { label: '① 開場白', hint: '自我介紹 + 表明來意 + 確認方便' },
+    { label: '② 確認基本信息', hint: '確認小朋友年齡、年級、性別' },
+    { label: '③ 了解數學基礎', hint: '問是否學過思維課 + 識數/運算/圖形能力' },
+    { label: '④ 性格與期望', hint: '問性格特點 + 表達能力 + 家長期望' },
+    { label: '⑤ 確認課包', hint: '課時包 + 上課安排(時間/級別/語言/班型) + 地址' },
+    { label: '⑥ 介紹APP', hint: '學生端/家長端 + 功能 + 賬號密碼 + 服務號' },
+    { label: '⑦ 上課規則', hint: '請假/補課/停課規則 + 曠課後果' },
+    { label: '⑧ 福利+結束', hint: '打卡福利 + 轉介紹 + 升艙 + 加微信/保持聯絡' }
+  ],
+  referenceAnswers: [
+    { topic: '開場白', answer: '小明家長您好，請問係小明媽媽嗎？我係豌豆益智嘅班主任XX老師...今日打畢您，主要想同您確認上課相關信息...請問您而家方便聽電話嗎？大概5-10分鐘。' },
+    { topic: '基本信息', answer: '首先同您確認下，小明今年係5歲對嗎？係男仔定女仔呀？而家係讀緊中班，對嗎？' },
+    { topic: '數學基礎', answer: '我想了解下，小明之前有冇喺課外上過數學思維課？識唔識基礎嘅平面圖形？可以熟練計算20以內嘅加減嗎？' },
+    { topic: '性格期望', answer: '小朋友平時願唔願意主動表達？性格係偏慢熱啲定活潑啲？媽咪今次報名思維課，想提升小朋友邊方面嘅能力呢？' },
+    { topic: '確認課包', answer: '跟住同媽咪確認下課程信息。40課時包...每節課40分鐘，6-8人班...媽咪記得定好鬧鐘...確認下寄送地址係咪完整？' },
+    { topic: 'APP介紹', answer: '上課會用「豌豆素質學生端」APP...家長端有「小老師視頻」「在線旁聽」等功能...賬號用手機號登入，密碼123456...' },
+    { topic: '上課規則', answer: '媽咪可以提前24小時申請請假...有7次免費請假機會...停課最長30日...曠課課時會正常扣除...' },
+    { topic: '福利+結束', answer: '打卡福利每週攞2000豌豆幣...轉介紹福利...升艙權益...已經加咗微信，稍後拉群...保持聯絡，再見！' }
+  ]
+};
+
+// ============================================================
+// 状态管理
+// ============================================================
+const LS_PREFIX = 'vipthink_hkmacau_service';
+let currentSection = 0;
+let completedSections = new Set();
+
+// 选择题状态 — 用 var 使其成为 window 的属性，保证 window['quiz1Answered'] 等动态访问正确
+var quiz1Answered = false, quiz2Answered = false, quiz3Answered = false, quiz4Answered = false;
+// AI对话状态 — 同理必须用 var
+var dialogue1Answered = false, dialogue1Score = 0;
+var dialogue2Answered = false, dialogue2Score = 0;
+var dialogue3Answered = false, dialogue3Score = 0;
+var dialogue4Answered = false, dialogue4Score = 0;
+// 终极考核状态（自由对话模式）
+var roleplaySubmitted = false, roleplayScore = 0;
+let roleplayExchangeCount = 0;        // 当前对话轮数
+let roleplayConversation = [];         // 完整对话记录 [{role:'user'|'parent', content:''}]
+
+// AI API 设置（公司后端代理地址 — 学员无需配置任何东西）
+// 自动检测：通过 3001 端口或正式域名访问时用相对路径，本地开发时指向 3001
+const BACKEND_URL = (
+  window.location.port === '3001' ||
+  window.location.protocol === 'https:' ||
+  !window.location.hostname.match(/^(localhost|127\.0\.0\.1)$/)
+) ? '/api/chat' : 'http://localhost:3001/api/chat';
+
+let studySeconds = 0;
+let timerInterval = null;
+
+// ============================================================
+// 初始化
+// ============================================================
+function init() {
+  loadAiConfig();
+  renderSidebar();
+  renderSections();
+  renderEmbeddedComponents();
+  navigateTo(0);
+  setupKeyboardShortcuts();
+  startTimer();
+  loadNotes();
+  loadProgress();
+}
+
+function renderSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  nav.innerHTML = courseData.sections.map((s, i) => `
+    <div class="nav-section" data-index="${i}" onclick="navigateTo(${i})">
+      <div class="nav-icon">${s.icon}</div>
+      <div class="nav-info">
+        <div class="nav-label">${s.title}</div>
+        <div class="nav-sub">⏱ ${s.duration}</div>
+      </div>
+    </div>
+  `).join('');
+  updateSidebarLocks();
+}
+
+function updateSidebarLocks() {
+  document.querySelectorAll('.nav-section').forEach((el, i) => {
+    const check = canNavigateTo(i);
+    if (!check.ok && i !== currentSection) {
+      el.classList.add('locked');
+    } else {
+      el.classList.remove('locked');
+    }
+  });
+}
+
+function renderSections() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = courseData.sections.map((s, i) => `
+    <div class="section" data-section="${i}">
+      ${s.content}
+      <div class="section-nav-buttons">
+        <div>${i > 0 ? `<button class="btn btn-outline" onclick="navigateTo(${i-1})">← 上一章</button>` : ''}</div>
+        <div>${i < courseData.sections.length - 1 ? `<button class="btn" onclick="markComplete(${i});navigateTo(${i+1})">下一章 →</button>` : `<button class="btn btn-success" id="completeCourseBtn" onclick="tryCompleteCourse(${i})">✓ 完成课程</button>`}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// 嵌入式组件渲染
+// ============================================================
+function renderEmbeddedComponents() {
+  // 渲染选择题
+  for (let i = 1; i <= 4; i++) {
+    const container = document.getElementById('quiz-quiz' + i);
+    if (container) container.innerHTML = renderQuizHTML('quiz' + i);
+  }
+  // 渲染AI对话
+  for (let i = 1; i <= 4; i++) {
+    const container = document.getElementById('dialogue-quiz' + i);
+    if (container) container.innerHTML = renderDialogueHTML('dialogue' + i);
+  }
+  // 渲染Role-play
+  const rpContainer = document.getElementById('roleplay-container');
+  if (rpContainer) rpContainer.innerHTML = renderRoleplayHTML();
+}
+
+function renderQuizHTML(quizId) {
+  const quiz = quizzes[quizId];
+  if (!quiz) return '';
+
+  // 兼容两种格式：questions 数组（新格式，第1章5道题）/ 单题字段（其他章）
+  const isMulti = Array.isArray(quiz.questions) && quiz.questions.length > 0;
+
+  if (isMulti) {
+    const total = quiz.questions.length;
+    return `
+      <div class="quiz-card" id="quiz-card-${quizId}">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span style="font-size:24px;">✍️</span>
+          <h3 style="font-size:16px;font-weight:700;">互動練習：選擇題（共 ${total} 題）</h3>
+        </div>
+        <div class="quiz-multi-meta" style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">
+          📌 第1章知識點檢測：覆蓋24小時首通、課包核對、上課規則、APP&服務號、福利介紹
+        </div>
+        ${quiz.questions.map((q, qi) => `
+          <div class="quiz-question" style="${qi > 0 ? 'margin-top:24px;padding-top:20px;border-top:1px dashed var(--border);' : ''}">
+            <div style="font-size:13px;color:var(--primary-dark);font-weight:600;margin-bottom:6px;">第 ${qi + 1} / ${total} 題</div>
+            ${q.question}
+          </div>
+          <div class="quiz-options" id="options-${quizId}-${qi}">
+            ${q.options.map((opt, oi) => `
+              <div class="quiz-option" data-option="${oi}" onclick="selectQuizOption(this, ${oi}, '${quizId}', ${qi})">
+                <span class="quiz-option-label">${opt.label}</span>
+                <span>${opt.text}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="quiz-feedback" id="feedback-${quizId}-${qi}"></div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // 单题格式（其他章节）
+  return `
+    <div class="quiz-card" id="quiz-card-${quizId}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:24px;">✍️</span>
+        <h3 style="font-size:16px;font-weight:700;">互動練習：選擇題</h3>
+      </div>
+      <div class="quiz-question">${quiz.question}</div>
+      <div class="quiz-options">
+        ${quiz.options.map((opt, oi) => `
+          <div class="quiz-option" data-option="${oi}" onclick="selectQuizOption(this, ${oi}, '${quizId}')">
+            <span class="quiz-option-label">${opt.label}</span>
+            <span>${opt.text}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="feedback-${quizId}"></div>
+    </div>
+  `;
+}
+
+function renderDialogueHTML(quizId) {
+  const quiz = quizzes[quizId];
+  if (!quiz || !quiz.isDialogue) return '';
+  return `
+    <div class="dialogue-container" id="dialogue-card-${quizId}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:24px;">🤖</span>
+        <h3 style="font-size:16px;font-weight:700;">互動練習：AI模擬對話</h3>
+      </div>
+      <div class="dialogue-scenario"><strong>📋 場景設定：</strong>${quiz.scenario}</div>
+      <div class="customer-bubble">👩 家長：${quiz.question}</div>
+      <textarea class="reply-input" id="dialogueInput-${quizId}" placeholder="請運用所學話術組織回應...（Ctrl+Enter 提交）"></textarea>
+      <div class="dialogue-actions">
+        <button class="btn" id="submitBtn-${quizId}" onclick="submitDialogue('${quizId}')">提交回答</button>
+        <button class="btn btn-outline" onclick="resetDialogue('${quizId}')">重新作答</button>
+      </div>
+      <div class="ai-feedback-panel" id="dialogueFeedback-${quizId}"></div>
+    </div>
+  `;
+}
+
+function renderRoleplayHTML() {
+  return `
+    <div class="roleplay-container" id="roleplayCard">
+      <div class="rp-header">
+        <span style="font-size:28px;">🏆</span>
+        <h3>終極考核：首通電話話術 Role-play</h3>
+        <span style="margin-left:auto;font-size:12px;padding:4px 10px;border-radius:12px;background:#d4edda;color:#155724;font-weight:600;">🤖 AI 模式</span>
+      </div>
+
+      <div class="rp-ai-info" style="background:linear-gradient(135deg,#e3f2fd,#f3e5f5);padding:10px 14px;border-radius:8px;margin:0 0 14px;font-size:13px;color:#555;display:flex;align-items:center;gap:8px;">
+        <span style="font-size:16px;">💡</span>
+        <span>本練習由公司統一提供 AI 對話能力，<b>無需配置 API Key</b>。<b>自由對話模式</b>：像真打電話一樣跟AI家長聊天，覆蓋所有流程後點「結束對話」提交評分。</span>
+      </div>
+
+      <div class="rp-scenario">${roleplayConfig.scenario}</div>
+      
+      <!-- 话题进度指引 -->
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;" id="rpTopicList">
+        ${roleplayConfig.topics.map((t, i) => `
+          <span id="rp-topic-${i}" style="font-size:11px;padding:3px 8px;border-radius:10px;background:#e2e8f0;color:#64748b;white-space:nowrap;transition:all 0.3s;">${t.label}</span>
+        `).join('')}
+      </div>
+
+      <!-- 对话状态栏 -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#f1f5f9;border-radius:8px;margin-bottom:14px;font-size:13px;">
+        <span id="rpExchangeCount">📞 對話輪數：<b>0</b></span>
+        <span id="rpCurrentTopic" style="color:var(--primary);">等待開始...</span>
+      </div>
+
+      <div id="rpChatArea" class="rp-history" style="display:block;max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;padding:12px;background:#fafafa;">
+        <div style="text-align:center;color:var(--text-secondary);padding:20px;font-size:13px;">👇 點擊「開始通話」開始首通電話模擬</div>
+      </div>
+
+      <div id="rpContent" style="margin-top:12px;">
+        <textarea class="rp-input" id="rpInput" placeholder="輸入你嘅說話...（Ctrl+Enter 發送）" disabled></textarea>
+        <div class="rp-actions">
+          <button class="btn" id="rpStartBtn" onclick="startRoleplay()">📞 開始通話</button>
+          <button class="btn" id="rpSubmitBtn" onclick="submitRoleplayMessage()" style="display:none;">發送消息</button>
+          <button class="btn btn-outline" id="rpEndBtn" onclick="endRoleplayConversation()" style="display:none;">🏁 結束對话 & 評分</button>
+          <button class="btn btn-outline" onclick="resetRoleplay()">重新開始</button>
+        </div>
+      </div>
+
+      <div class="rp-typing-indicator" id="rpTyping" style="display:none;">
+        <span>👩 家長正在回應中</span>
+        <div class="typing-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div id="rpFeedback" style="display:none;"></div>
+    </div>
+  `;
+}
+
+// ============================================================
+// 导航与锁定
+// ============================================================
+function canNavigateTo(index) {
+  if (index <= 0) return { ok: true };
+  if (index > 0 && (!quiz1Answered || !dialogue1Answered || dialogue1Score < 60))
+    return { ok: false, msg: '請先完成第1章的選擇題和AI模擬對話（對話需達60分）' };
+  if (index > 1 && (!quiz2Answered || !dialogue2Answered || dialogue2Score < 60))
+    return { ok: false, msg: '請先完成第2章的選擇題和AI模擬對話（對話需達60分）' };
+  if (index > 2 && (!quiz3Answered || !dialogue3Answered || dialogue3Score < 60))
+    return { ok: false, msg: '請先完成第3章的選擇題和AI模擬對話（對話需達60分）' };
+  if (index > 3 && (!quiz4Answered || !dialogue4Answered || dialogue4Score < 60))
+    return { ok: false, msg: '請先完成第4章的選擇題和AI模擬對話（對話需達60分）' };
+  return { ok: true };
+}
+
+function navigateTo(index) {
+  const check = canNavigateTo(index);
+  if (!check.ok) {
+    showToast('🔒 ' + check.msg, 'warning');
+    return;
+  }
+  currentSection = index;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-section').forEach(n => n.classList.remove('active'));
+  const section = document.querySelector(`.section[data-section="${index}"]`);
+  if (section) section.classList.add('active');
+  const navItem = document.querySelector(`.nav-section[data-index="${index}"]`);
+  if (navItem) navItem.classList.add('active');
+  updateProgress();
+  updateNotesForSection(index);
+  saveProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+  const mhTitle = document.getElementById('mhTitle');
+  if (mhTitle) mhTitle.textContent = courseData.sections[index].title;
+}
+
+function markComplete(index) {
+  completedSections.add(index);
+  updateProgress();
+  saveProgress();
+  showToast('「' + courseData.sections[index].title + '」已完成 ✓', 'success');
+  checkCertificate();
+}
+
+function tryCompleteCourse(index) {
+  if (!roleplaySubmitted) {
+    showToast('請先完成終極考核（Role-play）', 'warning');
+    return;
+  }
+  if (roleplayScore < 60) {
+    showToast('終極考核得分未達60分（當前' + roleplayScore + '分）', 'warning');
+    return;
+  }
+  markComplete(index);
+}
+
+function updateProgress() {
+  const total = courseData.sections.length;
+  const viewed = new Set([...completedSections, currentSection]);
+  const pct = Math.round((viewed.size / total) * 100);
+  document.getElementById('progressPercent').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+  const mpbFill = document.getElementById('mpbFill');
+  if (mpbFill) mpbFill.style.width = pct + '%';
+  document.querySelectorAll('.nav-section').forEach((el, i) => {
+    if (completedSections.has(i)) el.classList.add('completed');
+  });
+}
+
+// ============================================================
+// 选择题处理
+// ============================================================
+function selectQuizOption(el, optionIndex, quizId, questionIndex) {
+  const quiz = quizzes[quizId];
+  const isMulti = Array.isArray(quiz.questions) && quiz.questions.length > 0;
+  const qi = (isMulti && typeof questionIndex === 'number') ? questionIndex : 0;
+
+  // 取出对应题目
+  const question = isMulti ? quiz.questions[qi] : quiz;
+
+  // 多题时，按子题索引判断是否已答；单题时沿用原有 stateVar
+  let stateVar;
+  if (isMulti) {
+    stateVar = quizId + '_q' + qi + '_Answered';
+    if (window[stateVar]) return;
+  } else {
+    stateVar = quizId + 'Answered';
+    if (window[stateVar]) return;
+  }
+
+  const feedback = isMulti
+    ? document.getElementById('feedback-' + quizId + '-' + qi)
+    : document.getElementById('feedback-' + quizId);
+  const card = document.getElementById('quiz-card-' + quizId);
+  const optionsSelector = isMulti
+    ? ('#options-' + quizId + '-' + qi + ' .quiz-option')
+    : ('#quiz-card-' + quizId + ' .quiz-option');
+
+  document.querySelectorAll(optionsSelector).forEach(opt => {
+    opt.style.pointerEvents = 'none';
+    opt.classList.remove('selected');
+  });
+  el.classList.add('selected');
+
+  if (optionIndex === question.correct) {
+    el.classList.add('correct');
+    card.classList.add('answered-correct');
+    feedback.className = 'quiz-feedback show correct';
+    feedback.innerHTML = question.feedback_correct;
+  } else {
+    el.classList.add('wrong');
+    card.classList.add('answered-wrong');
+    feedback.className = 'quiz-feedback show wrong';
+    feedback.innerHTML = question.feedback_wrong;
+    document.querySelectorAll(optionsSelector)[question.correct].classList.add('correct');
+  }
+
+  window[stateVar] = true;
+
+  // 多题时，更新主状态：所有子题都答完才算"已答"
+  if (isMulti) {
+    const allAnswered = quiz.questions.every((_, i) => window[quizId + '_q' + i + '_Answered']);
+    if (allAnswered) {
+      window[quizId + 'Answered'] = true;
+    }
+  } else {
+    window[quizId + 'Answered'] = true;
+  }
+
+  saveProgress();
+  updateSidebarLocks();
+}
+
+// ============================================================
+// AI 模拟对话处理
+// ============================================================
+function submitDialogue(quizId) {
+  const stateVar = quizId + 'Answered';
+  const scoreVar = quizId + 'Score';
+  if (window[stateVar]) return;
+
+  const input = document.getElementById('dialogueInput-' + quizId);
+  const text = input.value.trim();
+  if (!text) {
+    showToast('請輸入回應內容', 'warning');
+    return;
+  }
+
+  const quiz = quizzes[quizId];
+  const lowerText = text.toLowerCase();
+  let score = 0;
+  let foundDims = [];
+  let missingDims = [];
+
+  quiz.expectedKeywords.forEach(dim => {
+    const found = dim.terms.some(term => lowerText.includes(term.toLowerCase()));
+    if (found) {
+      score += dim.weight;
+      foundDims.push(dim.concept);
+    } else {
+      missingDims.push(dim.concept);
+    }
+  });
+
+  // 长度加分
+  let lengthBonus = 0;
+  if (text.length >= 120) lengthBonus = 10;
+  else if (text.length >= 60) lengthBonus = 5;
+  score += lengthBonus;
+  if (score > 100) score = 100;
+
+  window[stateVar] = true;
+  window[scoreVar] = score;
+
+  // 锁定
+  input.disabled = true;
+  document.getElementById('submitBtn-' + quizId).disabled = true;
+
+  // 生成反馈
+  const feedback = document.getElementById('dialogueFeedback-' + quizId);
+  const scoreClass = score >= 80 ? 'high' : score >= 60 ? 'medium' : 'low';
+  const scoreLabel = score >= 80 ? '優秀' : score >= 60 ? '通過' : '未通過';
+
+  let html = `
+    <div class="score-display">
+      <div class="score-circle ${scoreClass}">${score}</div>
+      <p style="margin-top:8px;font-size:14px;font-weight:600;color:var(--text-secondary);">${scoreLabel}（滿分100分）</p>
+    </div>
+    <div style="margin-top:16px;">
+      <strong>📊 維度檢測結果：</strong>
+      <div class="keywords-result" style="margin-top:8px;">
+  `;
+  foundDims.forEach(d => html += `<span class="keyword-tag found">✓ ${d}</span>`);
+  missingDims.forEach(d => html += `<span class="keyword-tag missing">✗ ${d}</span>`);
+  html += `</div>`;
+
+  if (missingDims.length > 0) {
+    html += `<div style="margin-top:12px;font-size:13px;color:var(--text-secondary);">💡 �未能覆蓋的維度：${missingDims.join('、')}。建議在回應中補充相關內容。</div>`;
+  }
+
+  html += `<div style="margin-top:12px;font-size:13px;color:var(--text-secondary);">📝 字數：${text.length} 字${lengthBonus > 0 ? `（+${lengthBonus}長度加分）` : '（長度不足，未獲加分）'}</div>`;
+
+  // 参考答案
+  html += `<div class="script-block" style="margin-top:16px;"><strong>📋 滿分參考答案：</strong><br>${quiz.referenceAnswer}</div>`;
+
+  feedback.innerHTML = html;
+  feedback.classList.add('show');
+
+  saveProgress();
+  updateSidebarLocks();
+
+  showToast('AI模擬對話已提交，得分：' + score + '分', score >= 60 ? 'success' : 'warning');
+}
+
+function resetDialogue(quizId) {
+  const stateVar = quizId + 'Answered';
+  const scoreVar = quizId + 'Score';
+
+  // 清除提交状态，允许重答
+  window[stateVar] = false;
+  window[scoreVar] = 0;
+
+  // 恢复输入框和按钮
+  const input = document.getElementById('dialogueInput-' + quizId);
+  if (input) { input.value = ''; input.disabled = false; }
+  const btn = document.getElementById('submitBtn-' + quizId);
+  if (btn) { btn.disabled = false; }
+
+  // 隐藏评分反馈区
+  const fb = document.getElementById('dialogueFeedback-' + quizId);
+  if (fb) { fb.innerHTML = ''; fb.classList.remove('show'); }
+
+  saveProgress();
+  updateSidebarLocks();
+  showToast('已重置，可以重新作答', 'success');
+}
+
+// ============================================================
+// AI 设置 & 对话 API
+// ============================================================
+function toggleAiSettings() {
+  const body = document.getElementById('rpAiBody');
+  const icon = document.getElementById('aiToggleIcon');
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    icon.textContent = '▼';
+  } else {
+    body.classList.add('open');
+    icon.textContent = '▲';
+  }
+}
+
+// ============================================================
+// AI 设置面板（已弃用 - 改用后端代理，学员无需配置）
+// 保留函数以兼容旧逻辑，实际不再调用
+// ============================================================
+function toggleAiSettings() {
+  const body = document.getElementById('rpAiBody');
+  if (!body) return;
+  const icon = document.getElementById('aiToggleIcon');
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    if (icon) icon.textContent = '▼';
+  } else {
+    body.classList.add('open');
+    if (icon) icon.textContent = '▲';
+  }
+}
+
+function saveAiConfig() {
+  showToast('當前版本使用公司後端 AI，無需配置 Key', 'info');
+}
+
+function loadAiConfig() {
+  // 旧版本兼容：清理 localStorage 中的旧 AI 配置
+  try { localStorage.removeItem(LS_PREFIX + '_ai_config_v1'); } catch (e) {}
+}
+
+// ============================================================
+// AI 后端代理调用
+// ============================================================
+
+// 学员侧限流（防止恶意刷接口）
+const studentCallCount = { count: 0, resetAt: Date.now() + 60 * 60 * 1000 };
+const STUDENT_LIMIT_PER_HOUR = 50;
+function checkStudentLimit() {
+  const now = Date.now();
+  if (now > studentCallCount.resetAt) {
+    studentCallCount.count = 0;
+    studentCallCount.resetAt = now + 60 * 60 * 1000;
+  }
+  if (studentCallCount.count >= STUDENT_LIMIT_PER_HOUR) return false;
+  studentCallCount.count++;
+  return true;
+}
+
+// 后端健康检查缓存
+let backendAvailable = null;
+let backendCheckedAt = 0;
+async function checkBackendHealth() {
+  // 5 分钟内不重复检查
+  if (backendAvailable !== null && Date.now() - backendCheckedAt < 5 * 60 * 1000) {
+    return backendAvailable;
+  }
+  try {
+    const healthUrl = BACKEND_URL.replace(/\/api\/chat$/, '/health');
+    const r = await fetch(healthUrl, { method: 'GET' });
+    backendAvailable = r.ok;
+  } catch (e) {
+    backendAvailable = false;
+  }
+  backendCheckedAt = Date.now();
+  return backendAvailable;
+}
+
+// ============================================================
+// 自由对话模式 — AI System Prompt
+// ============================================================
+function buildFreeChatSystemPrompt() {
+  return `你扮演小明（5歲男仔，讀緊幼兒園中班）的媽媽，正在接聽豌豆益智班主任老師的首通電話。
+
+【你的身份】
+- 普通家長，不是教育專家
+- 使用粵語/廣東話風格中文（繁體），像真實香港媽咪
+- 回答簡短自然，1-3句話，口語化
+- 友善但不過度熱情，像接陌生電話的普通家長
+
+【孩子背景】
+- 小明，5歲男仔，讀中班
+- 之前沒上過數學思維課
+- 會少少點數，加減法未識
+- 有啲慢熱，表達能力一般
+
+【核心規則 — 最重要！】
+⚠️ 你必須根據老師（user）剛說的具體內容來回應！
+✅ 正確做法：
+- 老师说了有用信息 → 确认收到 + 自然反应
+- 老师说得太快或不清 → 追問"不好意思可否再講多次？"
+- 老师说的内容奇怪/乱码 → 表现困惑
+❌ 绝对禁止：
+- 不管说什么都背诵固定台词
+- 跳到下一个话题（老师还没讲完就问APP/请假等）
+- 假装听懂乱码内容
+- 每次都回答相同的话
+
+【话题推进指引】
+作为真实家长，你会自然地跟随老师的引导。当老师介绍完一个主题并开始下一个时，你也自然地切换关注点。不需要刻意按顺序，但整体对话应该覆盖：
+开场→基本信息→数学基础→性格期望→课程确认→APP使用→上课规则→福利收尾`;
+}
+
+// ============================================================
+// 调用 AI 获取家长回复（简化版 — 只传必要上下文）
+// ============================================================
+async function callParentAI(userText) {
+  if (!checkStudentLimit()) {
+    throw new Error('本小時練習次數已達上限，請稍後再試');
+  }
+
+  // 构建精简的消息列表（只保留最近6轮上下文，避免token过多）
+  const messages = [
+    { role: 'system', content: buildFreeChatSystemPrompt() }
+  ];
+
+  // 添加最近对话历史（最多6轮=12条消息）
+  const recentCount = Math.min(roleplayConversation.length, 12);
+  const startIdx = Math.max(0, roleplayConversation.length - recentCount);
+  for (let i = startIdx; i < roleplayConversation.length; i++) {
+    const msg = roleplayConversation[i];
+    messages.push({ role: msg.role === 'user' ? 'user' : 'assistant', content: msg.content });
+  }
+
+  // 当前用户输入
+  messages.push({ role: 'user', content: userText });
+
+  // 最终指令
+  messages.push({
+    role: 'system',
+    content: `【立即回應指令】
+老師剛剛說的是：「${userText.substring(0, 80)}${userText.length > 80 ? '...' : ''}」
+
+請以家長身份，針對這段內容做出簡短自然的粵語回應。
+- 聽懂了就確認/追問細節
+- 沒聽清就說"不好意思"
+- 內容奇怪就表示困惑
+絕對不要背預設台詞！只輸出一句話回應。`
+  });
+
+  const response = await fetch(BACKEND_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages,
+      model: 'deepseek-chat',
+      max_tokens: 80,
+      temperature: 0.6
+    })
+  });
+
+  if (!response.ok) {
+    const errText = await response.text();
+    let errMsg = `AI 服務暫時不可用 (${response.status})`;
+    try { const j = JSON.parse(errText); errMsg = j.message || j.error?.message || errMsg; } catch(e) {}
+    throw new Error(errMsg);
+  }
+
+  const data = await response.json();
+  let reply = data.choices?.[0]?.message?.content?.trim();
+  if (!reply) throw new Error('AI 回應為空');
+  reply = reply.replace(/^["「『]|["」』]$/g, '').trim();
+  return reply || '好嘅';
+}
+
+// ============================================================
+// 开始角色扮演
+// ============================================================
+async function startRoleplay() {
+  roleplayExchangeCount = 0;
+  roleplayConversation = [];
+  roleplaySubmitted = false;
+
+  const chatArea = document.getElementById('rpChatArea');
+  chatArea.innerHTML = '';
+
+  // 显示家长的 openingLine
+  chatArea.innerHTML += `<div class="rp-history-item parent">👩 家長：${roleplayConfig.openingLine}</div>`;
+  roleplayConversation.push({ role: 'parent', content: roleplayConfig.openingLine });
+
+  // 更新 UI
+  document.getElementById('rpExchangeCount').innerHTML = `📞 對話輪數：<b>1</b>`;
+  document.getElementById('rpCurrentTopic').textContent = '① 開場白 — 等待你自我介紹...';
+  updateTopicHighlight(0);
+
+  // 启用输入框
+  const input = document.getElementById('rpInput');
+  input.disabled = false;
+  input.value = '';
+  input.placeholder = '輸入你嘅說話...（Ctrl+Enter 發送）';
+
+  document.getElementById('rpStartBtn').style.display = 'none';
+  document.getElementById('rpSubmitBtn').style.display = '';
+  document.getElementById('rpEndBtn').style.display = '';
+  input.focus();
+
+  showToast('📞 通話已接通，家長正在等你說話...', 'success');
+}
+
+// ============================================================
+// 发送消息
+// ============================================================
+async function submitRoleplayMessage() {
+  const input = document.getElementById('rpInput');
+  const text = input.value.trim();
+  if (!text) { showToast('請輸入說話內容', 'warning'); return; }
+
+  // 禁用输入
+  input.disabled = true;
+  document.getElementById('rpSubmitBtn').disabled = true;
+
+  // 显示用户消息
+  const chatArea = document.getElementById('rpChatArea');
+  chatArea.innerHTML += `<div class="rp-history-item user">🧑‍🏫 你：${text}</div>`;
+  chatArea.scrollTop = chatArea.scrollHeight;
+  roleplayConversation.push({ role: 'user', content: text });
+  roleplayExchangeCount++;
+
+  // 打字指示器
+  const typing = document.getElementById('rpTyping');
+  typing.style.display = '';
+
+  let parentReply = '好嘅';
+  let aiUsed = false;
+
+  const backendOK = await checkBackendHealth();
+  if (backendOK) {
+    try {
+      parentReply = await callParentAI(text);
+      aiUsed = true;
+    } catch (err) {
+      console.warn('AI 後端調用失敗:', err.message);
+      showToast('⚠️ AI 回應失敗，使用默認回應', 'warning');
+    }
+  }
+
+  typing.style.display = 'none';
+
+  // 显示家长回复
+  const replyLabel = aiUsed ? '🤖 AI 家長' : '👩 默認家長';
+  chatArea.innerHTML += `<div class="rp-history-item parent">${replyLabel}：${parentReply}</div>`;
+  chatArea.scrollTop = chatArea.scrollHeight;
+  roleplayConversation.push({ role: 'parent', content: parentReply, aiUsed: aiUsed });
+
+  // 更新计数和话题
+  document.getElementById('rpExchangeCount').innerHTML = `📞 對話輪數：<b>${roleplayExchangeCount}</b>`;
+
+  // 根据对话长度推断当前话题
+  const topicIdx = inferCurrentTopic();
+  if (topicIdx >= 0) {
+    document.getElementById('rpCurrentTopic').textContent = roleplayConfig.topics[topicIdx].label + ' — ' + roleplayConfig.topics[topicIdx].hint;
+    updateTopicHighlight(topicIdx);
+  } else {
+    document.getElementById('rpCurrentTopic').textContent = '自由對話中...';
+  }
+
+  // 恢复输入
+  input.value = '';
+  input.disabled = false;
+  document.getElementById('rpSubmitBtn').disabled = false;
+  input.focus();
+}
+
+// 推断当前所处的话题阶段
+function inferCurrentTopic() {
+  const count = roleplayExchangeCount;
+  if (count <= 2) return 0;       // 开场白
+  if (count <= 4) return 1;       // 基本信息
+  if (count <= 6) return 2;       // 数学基础
+  if (count <= 8) return 3;       // 性格期望
+  if (count <= 11) return 4;      // 课程确认
+  if (count <= 13) return 5;      // APP
+  if (count <= 15) return 6;      // 上课规则
+  return 7;                       // 福利+结束
+}
+
+function updateTopicHighlight(activeIdx) {
+  for (let i = 0; i <= activeIdx; i++) {
+    const el = document.getElementById(`rp-topic-${i}`);
+    if (el) {
+      el.style.background = i === activeIdx ? 'var(--primary)' : '#93c5fd';
+      el.style.color = '#fff';
+    }
+  }
+}
+
+// ============================================================
+// 结束对话 & AI 综合评估
+// ============================================================
+async function endRoleplayConversation() {
+  if (roleplayExchangeCount < 4) {
+    showToast('⚠️ 對話輪數太少（最少4輪），請繼續對話後再結束', 'warning');
+    return;
+  }
+
+  const btn = document.getElementById('rpEndBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ AI 評分中...';
+  document.getElementById('rpSubmitBtn').disabled = true;
+  document.getElementById('rpInput').disabled = true;
+
+  showToast('📊 正在分析您的整段對話表現...', 'info');
+
+  try {
+    await evaluateWithAI();
+  } catch (err) {
+    console.error('評分失敗:', err);
+    showToast('❌ AI 評分失敗：' + err.message + '，請重試', 'error');
+    btn.disabled = false;
+    btn.textContent = '🏁 結束對话 & 評分';
+    document.getElementById('rpSubmitBtn').disabled = false;
+    document.getElementById('rpInput').disabled = false;
+  }
+}
+
+async function evaluateWithAI() {
+  // 构建完整对话文本
+  const conversationText = roleplayConversation.map(m =>
+    `${m.role === 'user' ? '🧑‍🏫 老師' : '👩 家長'}：${m.content}`
+  ).join('\n');
+
+  const evalMessages = [
+    {
+      role: 'system',
+      content: `你是豌豆益智培訓機構的資深教學評審官。你需要評估一名班主任學員在首通電話角色扮演中的表現。
+
+【評分標準】（滿分100分）
+1. 流程規範性（30分）：是否按照正確順序完成首通電話全流程（開場介紹→確認信息→了解基礎→性格期望→課程確認→APP介紹→規則說明→福利結束）
+2. 信息準確性（30分）：傳遞的信息是否準確完整（課程參數、APP功能、規則細節等）
+3. 服務親和力（30分）：語氣是否禮貌專業、有同理心、能建立信任感
+4. 話題覆蓋度（10分）：是否覆蓋了所有必要話題
+
+【評分規則】
+- 60分為及格線
+- 不要因為對話短就給低分，要看質量
+- 如果某個話題沒覆蓋到，扣掉該話題對應的分值
+- 要具體指出優點和改進建議
+
+【輸出格式要求】
+嚴格按以下 JSON 格式輸出，不要加任何其他文字：
+{"score":85,"process":22,"accuracy":23,"rapport":25,"coverage":8,"feedback":"具體的文字反饋","strengths":["優點1","優點2"],"improvements":["改進建議1","改進建議2"]}`
+    },
+    { role: 'user', content: `以下是學員的首通電話對話記錄，請進行評分：\n\n${conversationText}\n\n共 ${roleplayExchangeCount} 輪對話。` }
+  ];
+
+  const response = await fetch(BACKEND_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages: evalMessages,
+      model: 'deepseek-chat',
+      max_tokens: 500,
+      temperature: 0.3
+    })
+  });
+
+  if (!response.ok) throw new Error(`AI 評分服務異常 (${response.status})`);
+
+  const data = await response.json();
+  const rawText = data.choices?.[0]?.message?.content?.trim() || '';
+
+  // 解析 JSON 结果
+  let result;
+  try {
+    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+    result = JSON.parse(jsonMatch ? jsonMatch[0] : rawText);
+  } catch (e) {
+    console.warn('AI評分JSON解析失敗，原始返回:', rawText);
+    result = {
+      score: 65, process: 20, accuracy: 20, rapport: 18, coverage: 7,
+      feedback: 'AI評分解析出現問題，已給予基礎分數。建議重做以獲得準確評分。',
+      strengths: ['完成了對話'], improvements: ['可再詳細一些']
+    };
+  }
+
+  // 应用分数
+  roleplayScore = Math.min(Math.max(result.score || 0, 0), 100);
+  roleplaySubmitted = true;
+
+  // 渲染反馈
+  renderScoreFeedback(result);
+
+  saveProgress();
+  updateSidebarLocks();
+  showToast(`終極考核已完成，得分：${roleplayScore}分`, roleplayScore >= 60 ? 'success' : 'warning');
+}
+
+function renderScoreFeedback(result) {
+  // 隐藏输入区
+  document.getElementById('rpContent').style.display = 'none';
+
+  const scoreClass = roleplayScore >= 80 ? 'high' : roleplayScore >= 60 ? 'medium' : 'low';
+  const scoreLabel = roleplayScore >= 80 ? '優秀' : roleplayScore >= 60 ? '通過' : '未通過';
+
+  const html = `
+    <div class="score-display">
+      <div class="score-circle ${scoreClass}" style="width:80px;height:80px;font-size:32px;">${roleplayScore}</div>
+      <p style="margin-top:8px;font-size:16px;font-weight:700;">${scoreLabel}（滿分100分）</p>
+    </div>
+    <div class="eval-dimensions" style="margin-top:20px;">
+      <div class="eval-dim"><h4>流程規範性</h4><div class="stars">${'⭐'.repeat(Math.round((result.process||0)/6))}</div><p style="font-size:24px;font-weight:800;color:var(--primary);">${result.process||0}<span style="font-size:14px;color:var(--text-secondary);">/30</span></p></div>
+      <div class="eval-dim"><h4>信息準確性</h4><div class="stars">${'⭐'.repeat(Math.round((result.accuracy||0)/6))}</div><p style="font-size:24px;font-weight:800;color:var(--primary);">${result.accuracy||0}<span style="font-size:14px;color:var(--text-secondary);">/30</span></p></div>
+      <div class="eval-dim"><h4>服務親和力</h4><div class="stars">${'⭐'.repeat(Math.round((result.rapport||0)/6))}</div><p style="font-size:24px;font-weight:800;color:var(--primary);">${result.rapport||0}<span style="font-size:14px;color:var(--text-secondary);">/30</span></p></div>
+      <div class="eval-dim"><h4>話題覆蓋度</h4><div class="stars">${'⭐'.repeat(Math.ceil((result.coverage||0)/2))}</div><p style="font-size:24px;font-weight:800;color:var(--accent);">${result.coverage||0}<span style="font-size:14px;color:var(--text-secondary);">/10</span></p></div>
+    </div>
+    <div style="margin-top:16px;font-size:13px;color:var(--text-secondary);">📝 共 ${roleplayExchangeCount} 輪對話</div>
+
+    <div style="margin-top:20px;padding:16px;background:#f8fafc;border-radius:10px;border-left:4px solid var(--primary);">
+      <strong>📋 AI 評語：</strong>
+      <p style="margin-top:6px;line-height:1.8;color:var(--text);">${result.feedback || ''}</p>
+      ${(result.strengths && result.strengths.length) ? `<p style="margin-top:10px;"><strong>✅ 優點：</strong>${result.strengths.map(s => `<span style="display:inline-block;background:#dcfce7;padding:2px 8px;border-radius:4px;margin:2px 4px 2px 0;font-size:12px;">${s}</span>`).join('')}</p>` : ''}
+      ${(result.improvements && result.improvements.length) ? `<p style="margin-top:10px;"><strong>💡 改進方向：</strong>${result.improvements.map(s => `<span style="display:inline-block;background:#fef3c7;padding:2px 8px;border-radius:4px;margin:2px 4px 2px 0;font-size:12px;">${s}</span>`).join('')}</p>` : ''}
+    </div>
+
+    <div style="margin-top:20px;padding-top:16px;border-top:2px dashed var(--border);text-align:center;">
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">${roleplayScore >= 60 ? '✅ 已通過！如想繼續練習可以重做一次' : '❌ 未能通過，建議重做練習'}</p>
+      <button class="btn" onclick="resetRoleplay()" style="min-width:180px;">🔄 重新作答</button>
+    </div>
+  `;
+
+  document.getElementById('rpFeedback').innerHTML = html;
+  document.getElementById('rpFeedback').style.display = 'block';
+}
+
+// ============================================================
+// 重置
+// ============================================================
+function resetRoleplay() {
+  roleplaySubmitted = false;
+  roleplayScore = 0;
+  roleplayExchangeCount = 0;
+  roleplayConversation = [];
+
+  // 重置 UI
+  const input = document.getElementById('rpInput');
+  input.value = '';
+  input.disabled = true;
+  input.placeholder = '點擊「開始通話」後才可輸入';
+
+  document.getElementById('rpStartBtn').style.display = '';
+  document.getElementById('rpSubmitBtn').style.display = 'none';
+  document.getElementById('rpSubmitBtn').disabled = false;
+  document.getElementById('rpEndBtn').style.display = 'none';
+  document.getElementById('rpEndBtn').disabled = false;
+  document.getElementById('rpEndBtn').textContent = '🏁 結束對话 & 評分';
+
+  document.getElementById('rpChatArea').innerHTML = '<div style="text-align:center;color:var(--text-secondary);padding:20px;font-size:13px;">👇 點擊「開始通話」開始首通電話模擬</div>';
+  document.getElementById('rpFeedback').style.display = 'none';
+  document.getElementById('rpContent').style.display = '';
+
+  document.getElementById('rpExchangeCount').innerHTML = `📞 對話輪數：<b>0</b>`;
+  document.getElementById('rpCurrentTopic').textContent = '等待開始...';
+
+  // 重置话题高亮
+  for (let i = 0; i < roleplayConfig.topics.length; i++) {
+    const el = document.getElementById(`rp-topic-${i}`);
+    if (el) { el.style.background = '#e2e8f0'; el.style.color = '#64748b'; }
+  }
+
+  saveProgress();
+  updateSidebarLocks();
+  showToast('終極考核已重置', 'success');
+}
+
+// ============================================================
+// 键盘快捷键
+// ============================================================
+function setupKeyboardShortcuts() {
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'Enter') {
+      // 检查AI对话输入框
+      for (let i = 1; i <= 4; i++) {
+        const input = document.getElementById('dialogueInput-dialogue' + i);
+        if (input && document.activeElement === input) {
+          submitDialogue('dialogue' + i);
+          return;
+        }
+      }
+      // 检查Role-play输入框
+      const rpInput = document.getElementById('rpInput');
+      if (rpInput && document.activeElement === rpInput) {
+        submitRoleplayMessage();
+      }
+    }
+  });
+}
+
+// ============================================================
+// 计时器
+// ============================================================
+function startTimer() {
+  const saved = localStorage.getItem(LS_PREFIX + '_study_seconds');
+  if (saved) studySeconds = parseInt(saved);
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    studySeconds++;
+    updateTimerDisplay();
+    if (studySeconds % 10 === 0) localStorage.setItem(LS_PREFIX + '_study_seconds', studySeconds);
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const mins = Math.floor(studySeconds / 60);
+  const secs = studySeconds % 60;
+  const timeStr = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+  const el = document.getElementById('timerDisplay');
+  if (el) el.textContent = timeStr;
+  const mhTimer = document.getElementById('mhTimer');
+  if (mhTimer) mhTimer.textContent = '⏱ ' + timeStr;
+}
+
+// ============================================================
+// 笔记
+// ============================================================
+function toggleNotes() {
+  document.getElementById('notesPanel').classList.toggle('open');
+}
+function updateNotesForSection(index) {
+  document.getElementById('notesChapterLabel').textContent = courseData.sections[index].title;
+  const saved = JSON.parse(localStorage.getItem(LS_PREFIX + '_notes') || '{}');
+  document.getElementById('notesTextarea').value = saved[index] || '';
+}
+function loadNotes() {
+  const saved = JSON.parse(localStorage.getItem(LS_PREFIX + '_notes') || '{}');
+  const ta = document.getElementById('notesTextarea');
+  if (ta) {
+    ta.value = saved[currentSection] || '';
+    ta.addEventListener('input', function() {
+      const all = JSON.parse(localStorage.getItem(LS_PREFIX + '_notes') || '{}');
+      all[currentSection] = this.value;
+      localStorage.setItem(LS_PREFIX + '_notes', JSON.stringify(all));
+    });
+  }
+}
+
+// ============================================================
+// 进度持久化
+// ============================================================
+function saveProgress() {
+  // 多题时的子题状态
+  const subKeys = [];
+  for (let i = 1; i <= 4; i++) {
+    const quiz = quizzes['quiz' + i];
+    if (quiz && Array.isArray(quiz.questions)) {
+      quiz.questions.forEach((_, qi) => {
+        subKeys.push(['quiz' + i + '_q' + qi + '_Answered', window['quiz' + i + '_q' + qi + '_Answered'] || false]);
+      });
+    }
+  }
+  const subState = {};
+  subKeys.forEach(([k, v]) => { subState[k] = v; });
+
+  const state = {
+    completedSections: [...completedSections],
+    quiz1Answered, quiz2Answered, quiz3Answered, quiz4Answered,
+    dialogue1Answered, dialogue1Score,
+    dialogue2Answered, dialogue2Score,
+    dialogue3Answered, dialogue3Score,
+    dialogue4Answered, dialogue4Score,
+    roleplaySubmitted, roleplayScore,
+    subAnswers: subState
+  };
+  localStorage.setItem(LS_PREFIX + '_progress', JSON.stringify(state));
+}
+
+function loadProgress() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(LS_PREFIX + '_progress'));
+    if (saved) {
+      completedSections = new Set(saved.completedSections || []);
+      quiz1Answered = saved.quiz1Answered || false;
+      quiz2Answered = saved.quiz2Answered || false;
+      quiz3Answered = saved.quiz3Answered || false;
+      quiz4Answered = saved.quiz4Answered || false;
+      dialogue1Answered = saved.dialogue1Answered || false;
+      dialogue1Score = saved.dialogue1Score || 0;
+      dialogue2Answered = saved.dialogue2Answered || false;
+      dialogue2Score = saved.dialogue2Score || 0;
+      dialogue3Answered = saved.dialogue3Answered || false;
+      dialogue3Score = saved.dialogue3Score || 0;
+      dialogue4Answered = saved.dialogue4Answered || false;
+      dialogue4Score = saved.dialogue4Score || 0;
+      roleplaySubmitted = saved.roleplaySubmitted || false;
+      roleplayScore = saved.roleplayScore || 0;
+      // 恢复子题状态
+      if (saved.subAnswers) {
+        Object.keys(saved.subAnswers).forEach(k => {
+          window[k] = saved.subAnswers[k];
+        });
+      }
+      updateProgress();
+      updateSidebarLocks();
+      restoreComponentStates();
+    }
+  } catch (e) {}
+}
+
+function restoreComponentStates() {
+  // 恢复选择题状态
+  for (let i = 1; i <= 4; i++) {
+    const quizId = 'quiz' + i;
+    const quiz = quizzes[quizId];
+    if (!quiz) continue;
+    const card = document.getElementById('quiz-card-' + quizId);
+    if (!card) continue;
+    const isMulti = Array.isArray(quiz.questions) && quiz.questions.length > 0;
+
+    if (isMulti) {
+      // 多题：逐题恢复
+      quiz.questions.forEach((q, qi) => {
+        const subKey = quizId + '_q' + qi + '_Answered';
+        if (window[subKey]) {
+          const optWrap = document.getElementById('options-' + quizId + '-' + qi);
+          if (optWrap) {
+            const opts = optWrap.querySelectorAll('.quiz-option');
+            opts.forEach(o => o.style.pointerEvents = 'none');
+            const correctOpt = opts[q.correct];
+            if (correctOpt) {
+              correctOpt.classList.add('correct');
+              card.classList.add('answered-correct');
+            }
+            const fb = document.getElementById('feedback-' + quizId + '-' + qi);
+            if (fb) {
+              fb.className = 'quiz-feedback show correct';
+              fb.innerHTML = q.feedback_correct;
+            }
+          }
+        }
+      });
+    } else if (window[quizId + 'Answered']) {
+      // 单题恢复
+      const options = card.querySelectorAll('.quiz-option');
+      options.forEach(opt => opt.style.pointerEvents = 'none');
+      const correctOpt = options[quiz.correct];
+      if (correctOpt) {
+        correctOpt.classList.add('correct');
+        card.classList.add('answered-correct');
+      }
+      const feedback = document.getElementById('feedback-' + quizId);
+      if (feedback) {
+        feedback.className = 'quiz-feedback show correct';
+        feedback.innerHTML = quiz.feedback_correct;
+      }
+    }
+  }
+  // 恢复AI对话状态
+  for (let i = 1; i <= 4; i++) {
+    if (window['dialogue' + i + 'Answered']) {
+      const input = document.getElementById('dialogueInput-dialogue' + i);
+      const btn = document.getElementById('submitBtn-dialogue' + i);
+      if (input) input.disabled = true;
+      if (btn) btn.disabled = true;
+    }
+  }
+  // 恢复Role-play状态
+  if (roleplaySubmitted) {
+    document.getElementById('rpContent').style.display = 'none';
+    // 重新计算并显示结果（但不再重新提交）
+    const feedback = document.getElementById('rpFeedback');
+    if (feedback && roleplayScore > 0) {
+      const scoreClass = roleplayScore >= 80 ? 'high' : roleplayScore >= 60 ? 'medium' : 'low';
+      const scoreLabel = roleplayScore >= 80 ? '優秀' : roleplayScore >= 60 ? '通過' : '未通過';
+      feedback.innerHTML = `
+        <div class="score-display">
+          <div class="score-circle ${scoreClass}" style="width:80px;height:80px;font-size:32px;">${roleplayScore}</div>
+          <p style="margin-top:8px;font-size:16px;font-weight:700;">${scoreLabel}（滿分100分）</p>
+          <p style="margin-top:4px;font-size:13px;color:var(--text-secondary);">已完成終極考核</p>
+        </div>
+      `;
+      feedback.style.display = 'block';
+    }
+  }
+}
+
+// ============================================================
+// 结业证书
+// ============================================================
+function checkCertificate() {
+  const allDone = completedSections.size >= courseData.sections.length
+    && quiz1Answered && quiz2Answered && quiz3Answered && quiz4Answered
+    && dialogue1Answered && dialogue2Answered && dialogue3Answered && dialogue4Answered
+    && roleplaySubmitted && roleplayScore >= 60;
+  if (allDone) {
+    setTimeout(() => {
+      showToast('🏆 恭喜完成全部課程！點擊領取結業證書', 'success');
+      document.getElementById('certStudentName').textContent = '請填寫姓名';
+      document.getElementById('certScore').textContent = '終極考核得分：' + roleplayScore + '分';
+      document.getElementById('certDate').textContent = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('certOverlay').style.display = 'flex';
+    }, 1000);
+  }
+}
+
+function closeCertificate() {
+  document.getElementById('certOverlay').style.display = 'none';
+}
+
+function printCertificate() {
+  const cert = document.getElementById('certPaper');
+  const win = window.open('', '_blank', 'width=750,height=600');
+  win.document.write('<html><head><meta charset="UTF-8"><title>結業證書</title><style>');
+  win.document.write('body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f1f5f9;}');
+  win.document.write('.cert{background:#fff;width:700px;padding:48px 36px;text-align:center;border:2px solid #e2e8f0;border-radius:12px;}');
+  win.document.write('.cert h1{font-size:28px;color:#1d4ed8;margin-bottom:4px;}');
+  win.document.write('.cert .sub{font-size:12px;color:#64748b;letter-spacing:0.1em;margin-bottom:24px;}');
+  win.document.write('.cert .body{font-size:15px;line-height:2;color:#1e293b;}');
+  win.document.write('.cert .name{display:inline-block;border-bottom:2px solid #2563eb;min-width:120px;padding:4px 12px;margin:0 4px;}');
+  win.document.write('.cert .course{font-weight:700;color:#1d4ed8;margin:8px 0;}');
+  win.document.write('.cert .score{margin:20px 0;font-size:16px;font-weight:600;color:#10b981;}');
+  win.document.write('.cert .footer{display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-top:32px;border-top:1px solid #e2e8f0;padding-top:16px;}');
+  win.document.write('</style></head><body><div class="cert">');
+  win.document.write(cert.innerHTML.replace(/<button[^>]*>.*?<\/button>/g, ''));
+  win.document.write('</div></body></html>');
+  win.document.close();
+  setTimeout(() => win.print(), 500);
+}
+
+// ============================================================
+// Toast & Sidebar Toggle
+// ============================================================
+function showToast(msg, type) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'toast ' + type;
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
