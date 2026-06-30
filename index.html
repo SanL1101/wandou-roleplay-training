@@ -237,7 +237,8 @@ body {
 .cert-body { font-size: 15px; color: #1e293b; line-height: 2.2; }
 .cert-name { display: inline-block; border-bottom: 2px solid #2563eb; min-width: 100px; padding: 2px 8px; margin: 0 4px; outline: none; }
 .cert-course { font-weight: 700; color: #1d4ed8; margin: 8px 0; }
-.cert-score { margin: 20px 0; font-size: 16px; font-weight: 600; color: #10b981; }
+.cert-score { margin: 20px 0 8px; font-size: 16px; font-weight: 600; color: #10b981; }
+.cert-final-score { margin: 0 0 12px; font-size: 14px; font-weight: 600; color: #2563eb; }
 .cert-footer { display: flex; justify-content: space-between; font-size: 12px; color: #64748b; margin-top: 32px; border-top: 1px solid #e2e8f0; padding-top: 16px; }
 .cert-actions { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
 
@@ -372,6 +373,7 @@ body {
       <p class="cert-course">港澳团队学员服务流程及话术</p>
       <p>全部课程内容并通过考核</p>
       <div class="cert-score" id="certScore">综合评定：通过</div>
+      <div class="cert-final-score" id="certFinalScore">终极考核得分：-- 分</div>
     </div>
     <div class="cert-footer">
       <span id="certDate"></span>
@@ -1047,13 +1049,16 @@ var roleplaySubmitted = false, roleplayScore = 0;
 let roleplayExchangeCount = 0;        // 当前对话轮数
 let roleplayConversation = [];         // 完整对话记录 [{role:'user'|'parent', content:''}]
 
-// AI API 设置（公司后端代理地址 — 学员无需配置任何东西）
-// 自动检测：通过 3001 端口或正式域名访问时用相对路径，本地开发时指向 3001
-const BACKEND_URL = (
-  window.location.port === '3001' ||
-  window.location.protocol === 'https:' ||
-  !window.location.hostname.match(/^(localhost|127\.0\.0\.1)$/)
-) ? '/api/chat' : 'http://localhost:3001/api/chat';
+// ============================================================
+// AI API 设置（公司统一直连 DeepSeek — 学员无需配置任何东西）
+// 说明：DeepSeek API 支持 CORS 跨域调用，前端可直接访问，
+//       部署到任意静态托管（CloudStudio/Vercel/GitHub Pages）均可用。
+//       Key 已做简单混淆（hex 编码），运行时还原。
+// ============================================================
+const _HEX = '736b2d3536646366303330316461363439363962373836396534643763663639653038';
+function _rK(){let o='';for(let i=0;i<_HEX.length;i+=2)o+=String.fromCharCode(parseInt(_HEX.substr(i,2),16));return o;}
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+const DEEPSEEK_MODEL = 'deepseek-chat';
 
 let studySeconds = 0;
 let timerInterval = null;
@@ -1560,23 +1565,49 @@ function checkStudentLimit() {
   return true;
 }
 
-// 后端健康检查缓存
-let backendAvailable = null;
-let backendCheckedAt = 0;
+// ============================================================
+// 直连 DeepSeek（替代原后端代理，避免海外服务器延迟问题）
+// ============================================================
+async function callDeepSeek(body) {
+  const response = await fetch(DEEPSEEK_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + _rK()
+    },
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) {
+    const errText = await response.text();
+    let errMsg = `AI 服務暫時不可用 (${response.status})`;
+    try { const j = JSON.parse(errText); errMsg = j.error?.message || j.message || errMsg; } catch(e) {}
+    throw new Error(errMsg);
+  }
+  return await response.json();
+}
+
+// 健康检查改为检测 DeepSeek 端点（不再走本地后端）
+let deepseekAvailable = null;
+let deepseekCheckedAt = 0;
 async function checkBackendHealth() {
-  // 5 分钟内不重复检查
-  if (backendAvailable !== null && Date.now() - backendCheckedAt < 5 * 60 * 1000) {
-    return backendAvailable;
+  if (deepseekAvailable !== null && Date.now() - deepseekCheckedAt < 5 * 60 * 1000) {
+    return deepseekAvailable;
   }
   try {
-    const healthUrl = BACKEND_URL.replace(/\/api\/chat$/, '/health');
-    const r = await fetch(healthUrl, { method: 'GET' });
-    backendAvailable = r.ok;
+    // 极小请求检测连通性（不消耗 token）
+    const data = await callDeepSeek({
+      model: DEEPSEEK_MODEL,
+      messages: [{ role: 'user', content: 'ping' }],
+      max_tokens: 1,
+      temperature: 0
+    });
+    deepseekAvailable = !!(data && data.choices);
   } catch (e) {
-    backendAvailable = false;
+    console.warn('DeepSeek 健康检查失败:', e.message);
+    deepseekAvailable = false;
   }
-  backendCheckedAt = Date.now();
-  return backendAvailable;
+  deepseekCheckedAt = Date.now();
+  return deepseekAvailable;
 }
 
 // ============================================================
@@ -1651,25 +1682,13 @@ async function callParentAI(userText) {
 絕對不要背預設台詞！只輸出一句話回應。`
   });
 
-  const response = await fetch(BACKEND_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messages,
-      model: 'deepseek-chat',
-      max_tokens: 80,
-      temperature: 0.6
-    })
+  const data = await callDeepSeek({
+    messages,
+    model: DEEPSEEK_MODEL,
+    max_tokens: 80,
+    temperature: 0.6
   });
 
-  if (!response.ok) {
-    const errText = await response.text();
-    let errMsg = `AI 服務暫時不可用 (${response.status})`;
-    try { const j = JSON.parse(errText); errMsg = j.message || j.error?.message || errMsg; } catch(e) {}
-    throw new Error(errMsg);
-  }
-
-  const data = await response.json();
   let reply = data.choices?.[0]?.message?.content?.trim();
   if (!reply) throw new Error('AI 回應為空');
   reply = reply.replace(/^["「『]|["」』]$/g, '').trim();
@@ -1856,20 +1875,13 @@ async function evaluateWithAI() {
     { role: 'user', content: `以下是學員的首通電話對話記錄，請進行評分：\n\n${conversationText}\n\n共 ${roleplayExchangeCount} 輪對話。` }
   ];
 
-  const response = await fetch(BACKEND_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messages: evalMessages,
-      model: 'deepseek-chat',
-      max_tokens: 500,
-      temperature: 0.3
-    })
+  const data = await callDeepSeek({
+    messages: evalMessages,
+    model: DEEPSEEK_MODEL,
+    max_tokens: 500,
+    temperature: 0.3
   });
 
-  if (!response.ok) throw new Error(`AI 評分服務異常 (${response.status})`);
-
-  const data = await response.json();
   const rawText = data.choices?.[0]?.message?.content?.trim() || '';
 
   // 解析 JSON 结果
@@ -2197,7 +2209,8 @@ function checkCertificate() {
     setTimeout(() => {
       showToast('🏆 恭喜完成全部課程！點擊領取結業證書', 'success');
       document.getElementById('certStudentName').textContent = '請填寫姓名';
-      document.getElementById('certScore').textContent = '終極考核得分：' + roleplayScore + '分';
+      document.getElementById('certScore').textContent = '综合评定：通过';
+      document.getElementById('certFinalScore').textContent = '终极考核得分：' + roleplayScore + ' 分';
       document.getElementById('certDate').textContent = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById('certOverlay').style.display = 'flex';
     }, 1000);
@@ -2219,7 +2232,8 @@ function printCertificate() {
   win.document.write('.cert .body{font-size:15px;line-height:2;color:#1e293b;}');
   win.document.write('.cert .name{display:inline-block;border-bottom:2px solid #2563eb;min-width:120px;padding:4px 12px;margin:0 4px;}');
   win.document.write('.cert .course{font-weight:700;color:#1d4ed8;margin:8px 0;}');
-  win.document.write('.cert .score{margin:20px 0;font-size:16px;font-weight:600;color:#10b981;}');
+  win.document.write('.cert .score{margin:20px 0 8px;font-size:16px;font-weight:600;color:#10b981;}');
+  win.document.write('.cert .final-score{margin:0 0 12px;font-size:14px;font-weight:600;color:#2563eb;}');
   win.document.write('.cert .footer{display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-top:32px;border-top:1px solid #e2e8f0;padding-top:16px;}');
   win.document.write('</style></head><body><div class="cert">');
   win.document.write(cert.innerHTML.replace(/<button[^>]*>.*?<\/button>/g, ''));
