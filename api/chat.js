@@ -1,13 +1,10 @@
 // Vercel Serverless Function - AI Chat Proxy (DeepSeek)
 // 路径: POST /api/chat
 
-// 简易内存限频（Vercel 每次调用是独立实例，用 header 传递）
-const RATE_LIMIT_MAX = 100;
-
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   // 只接受 POST
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'method_not_allowed', message: '仅支持 POST' });
+    return res.status(405).json({ error: 'method_not_allowed', message: 'POST only' });
   }
 
   // CORS
@@ -22,12 +19,12 @@ export default async function handler(req, res) {
   const { messages, model, max_tokens, temperature } = req.body || {};
 
   if (!Array.isArray(messages) || messages.length === 0) {
-    return res.status(400).json({ error: 'invalid_request', message: 'messages 必填且为数组' });
+    return res.status(400).json({ error: 'invalid_request', message: 'messages required' });
   }
 
   const apiKey = process.env.DEEPSEEK_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'no_api_key', message: '服务端未配置 DEEPSEEK_KEY' });
+    return res.status(500).json({ error: 'no_api_key', message: 'DEEPSEEK_KEY not configured' });
   }
 
   try {
@@ -35,7 +32,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': 'Bearer ' + apiKey
       },
       body: JSON.stringify({
         model: model || 'deepseek-chat',
@@ -52,10 +49,10 @@ export default async function handler(req, res) {
     catch (e) { data = { error: { message: text } }; }
 
     if (!upstream.ok) {
-      console.error(`[DeepSeek Error] ${upstream.status}:`, data);
+      console.error('[DeepSeek Error] ' + upstream.status + ':', data);
       return res.status(upstream.status).json({
         error: 'upstream_error',
-        message: data.error?.message || 'AI 服务异常',
+        message: (data.error && data.error.message) || 'AI service error',
         upstream: data
       });
     }
@@ -65,7 +62,7 @@ export default async function handler(req, res) {
     console.error('[Proxy Error]', err);
     return res.status(500).json({
       error: 'proxy_error',
-      message: '代理服务异常：' + err.message
+      message: 'Proxy error: ' + err.message
     });
   }
-}
+};

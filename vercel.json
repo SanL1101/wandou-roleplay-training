@@ -1,9 +1,5 @@
 {
-  "version": 2,
-  "name": "wandou-roleplay-training",
-  "routes": [
-    { "src": "/api/chat", "dest": "/api/chat.js" },
-    { "src": "/health", "dest": "/api/health.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+  "rewrites": [
+    { "source": "/health", "destination": "/api/health" }
   ]
 }
