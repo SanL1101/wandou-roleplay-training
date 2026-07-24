@@ -1071,11 +1071,10 @@ function init() {
   renderSidebar();
   renderSections();
   renderEmbeddedComponents();
-  navigateTo(0);
+  loadProgress();
   setupKeyboardShortcuts();
   startTimer();
   loadNotes();
-  loadProgress();
 }
 
 function renderSidebar() {
@@ -2083,7 +2082,8 @@ function saveProgress() {
     dialogue3Answered, dialogue3Score,
     dialogue4Answered, dialogue4Score,
     roleplaySubmitted, roleplayScore,
-    subAnswers: subState
+    subAnswers: subState,
+    currentSection
   };
   localStorage.setItem(LS_PREFIX + '_progress', JSON.stringify(state));
 }
@@ -2116,6 +2116,9 @@ function loadProgress() {
       updateProgress();
       updateSidebarLocks();
       restoreComponentStates();
+      if (saved.currentSection !== undefined && saved.currentSection > 0) {
+        setTimeout(() => navigateTo(saved.currentSection), 100);
+      }
     }
   } catch (e) {}
 }
