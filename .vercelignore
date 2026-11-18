@@ -1,0 +1,8 @@
+server.js
+node_modules
+.env
+.gitignore
+DEPLOYMENT_GUIDE.md
+README.md
+railway.json
+.workbuddy
